@@ -1,0 +1,29 @@
+# WARNING: DO NOT REMOVE ANYTHING WITHIN {} (curly brackets) OR ELSE STUFF WILL BREAK!
+# WARNING: DO NOT REMOVE ANYTHING WITHIN {} (curly brackets) OR ELSE STUFF WILL BREAK!
+# WARNING: DO NOT REMOVE ANYTHING WITHIN {} (curly brackets) OR ELSE STUFF WILL BREAK!
+
+# PLAYER
+must-be-a-player: "&cYou must be a player to use that!"
+no-perms-to-use: "&cYou do not have the permissions required to use this!"
+incorrect-usage: "&cIncorrect Usage! &8(&7{command}&8)"
+invalid-amount: "&cInvalid amount!"
+
+# BANKING
+self-bank-menu-title: "&aYour bank:"
+other-bank-menu-title: "&a{name}'s bank:"
+bank-purse-item-name: "&6Purse: &a{purseMoney} {currency}"
+bank-bank-item-name: "&6Bank: &a{bankMoney}&8/&7{bankLimit} {currency}"
+bank-player-skull-item-name: "&f{name}"
+bank-player-skull-lore: "&6Total Money: &a{amount} {currency}"
+not-enough-money: "&cYou do not have enough money! &8(&7{amount}/{required} {currency}&8)"
+cannot-surpass-bank-limit: "&cYou cannot go over your bank limit! &8(&7{limit} {currency}&8)"
+
+# ECO
+beg-done-message: "&c{giver}&7:&f *gives you some spare coins*\n&aYou just got {amount} {currency}!"
+
+# GENERAL
+confirm-reload:
+
+# ERRORS (NO COLOR CODES)
+error-main-message: "&c&lERROR: &8{errorID}"
+player-not-found-error: "PLAYER_NOT_FOUND"

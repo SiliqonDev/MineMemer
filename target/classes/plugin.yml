@@ -1,5 +1,5 @@
 name: MineMemer
-version: '${project.version}'
+version: '0.-1-Watchu-Lookin-At-I-Just-Started'
 main: dev.wonkypigs.minememer.MineMemer
 api-version: 1.13
 prefix: MineMemer

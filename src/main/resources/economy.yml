@@ -1,0 +1,10 @@
+currency-name: "boops" # Thing big, think boops!
+
+beg-command-give-range: [100, 200]
+beg-giver-names:
+  - "placeholderLover1000"
+  - "Average Anime Fan"
+  - "Your mother"
+  - "Thy mum"
+  - "Thine hath no rizz"
+  - "Prof.R"
