@@ -19,7 +19,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import static dev.wonkypigs.minememer.Helpers.*;
+import static dev.wonkypigs.minememer.helpers.*;
 
 @CommandAlias("mm|minememer")
 public class balanceCommand extends BaseCommand {
@@ -56,10 +56,15 @@ public class balanceCommand extends BaseCommand {
         OfflinePlayer target;
         if (player.getUniqueId().equals(targetUUID)) {
             target = Bukkit.getOfflinePlayer(targetUUID);
-            inv = plugin.getServer().createInventory(null, 27, plugin.lang.getString("other-bank-menu-title").replace("&", "§").replace("{name}", target.getName()));
+            inv = plugin.getServer().createInventory(null, 27, plugin.lang.getString("other-bank-menu-title")
+                    .replace("&", "§")
+                    .replace("{name}", target.getName())
+            );
         } else {
             target = player;
-            inv = plugin.getServer().createInventory(null, 27, plugin.lang.getString("self-bank-menu-title").replace("&", "§"));
+            inv = plugin.getServer().createInventory(null, 27, plugin.lang.getString("self-bank-menu-title")
+                    .replace("&", "§")
+            );
         }
         // get user's bank data
         ResultSet results = grabBankData(targetUUID).get();

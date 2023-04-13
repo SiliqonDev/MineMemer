@@ -20,9 +20,10 @@ cannot-surpass-bank-limit: "&cYou cannot go over your bank limit! &8(&7{limit} {
 
 # ECO
 beg-done-message: "&c{giver}&7:&f *gives you some spare coins*\n&aYou just got {amount} {currency}!"
-
-# GENERAL
-confirm-reload:
+beg-failed-message: "&cOOF! No one gave you any {currency}"
+search-menu-title: "&aSearching for big loot..."
+search-done-message: "&7Searching {place}...\n&aYou just got {amount} {currency}!"
+search-failed-message: "&7Searching {place}...\n&cOOF! you didn't get any {currency} from that!"
 
 # ERRORS (NO COLOR CODES)
 error-main-message: "&c&lERROR: &8{errorID}"

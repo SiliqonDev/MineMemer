@@ -10,8 +10,7 @@ import org.bukkit.entity.Player;
 import java.util.List;
 import java.util.Random;
 
-import static dev.wonkypigs.minememer.Helpers.checkSenderIsPlayer;
-import static dev.wonkypigs.minememer.Helpers.gettinThatBread;
+import static dev.wonkypigs.minememer.helpers.*;
 
 @CommandAlias("mm|minememer")
 public class begCommand extends BaseCommand {
@@ -27,13 +26,20 @@ public class begCommand extends BaseCommand {
     }
 
     public void playerDidABeg(Player player) {
+        if (pickRandomNum(1, 7) == 2) {
+            player.sendMessage(plugin.lang.getString("beg-failed-message")
+                    .replace("&", "§")
+                    .replace("{currency}", plugin.currencyName)
+            );
+            return;
+        }
         // get giver name
         List<String> giverNames = plugin.economy.getStringList("beg-giver-names");
         Random giverRandom = new Random();
         String giverName = giverNames.get(giverRandom.nextInt(giverNames.size()));
 
         // get given amount
-        List<Integer> giveAmountRange = plugin.economy.getIntegerList("balance-command-give-range");
+        List<Integer> giveAmountRange = plugin.economy.getIntegerList("beg-give-range");
         int givenAmount = new Random().ints(giveAmountRange.get(0), giveAmountRange.get(1)).findFirst().getAsInt();
 
         // do the give

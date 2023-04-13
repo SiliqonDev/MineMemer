@@ -10,10 +10,10 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
-public class Helpers {
+public class helpers {
     private static final MineMemer plugin = MineMemer.getInstance();
 
     public static boolean checkSenderIsPlayer(CommandSender sender) {
@@ -40,7 +40,7 @@ public class Helpers {
         CompletableFuture<ResultSet> data = new CompletableFuture<>();
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             try {
-                PreparedStatement statement = plugin.getConnection().prepareStatement("SELECT uuid FROM playerdata WHERE name = ?");
+                PreparedStatement statement = plugin.getConnection().prepareStatement("SELECT uuid FROM mm_pdata WHERE name = ?");
                 statement.setString(1, name);
                 ResultSet results = statement.executeQuery();
                 data.complete(results);
@@ -73,7 +73,7 @@ public class Helpers {
         CompletableFuture<ResultSet> data = new CompletableFuture<>();
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             try {
-                PreparedStatement statement = plugin.getConnection().prepareStatement("SELECT purse, bankStored, bankLimit FROM pdata WHERE uuid = ?");
+                PreparedStatement statement = plugin.getConnection().prepareStatement("SELECT purse, bankStored, bankLimit FROM mm_pdata WHERE uuid = ?");
                 statement.setString(1, String.valueOf(targetUUID));
                 ResultSet resultSet = statement.executeQuery();
                 data.complete(resultSet);
@@ -88,7 +88,7 @@ public class Helpers {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             try {
                 PreparedStatement statement = plugin.getConnection()
-                        .prepareStatement("UPDATE pdata SET purse = ?, bankStored = ?, bankLimit = ? WHERE uuid = ?");
+                        .prepareStatement("UPDATE mm_pdata SET purse = ?, bankStored = ?, bankLimit = ? WHERE uuid = ?");
                 statement.setInt(1, newPurse);
                 statement.setInt(2, newBankStored);
                 statement.setInt(3, newBankLimit);
@@ -112,5 +112,16 @@ public class Helpers {
                 e.printStackTrace();
             }
         });
+    }
+
+    public static List<String> pickNRandom(List<String> lst, int n) {
+        List<String> copy = new ArrayList<>(lst);
+        Collections.shuffle(copy);
+        return n > copy.size() ? copy.subList(0, copy.size()) : copy.subList(0, n);
+    }
+    public static Integer pickRandomNum(int min, int max) {
+        Random random = new Random();
+        int num = random.ints(min, max).findFirst().getAsInt();
+        return num;
     }
 }

@@ -1,0 +1,17 @@
+##############################
+########## DATABASE ##########
+##############################
+
+db_type: "sqlite" # sqlite OR mysql
+# 'sqlite' will store all data in a local .db file
+# 'mysql' will attempt to connect to your mysql database with the given credentials
+
+# required for mysql:
+db_host: 127.0.0.1
+db_port: 3306
+db_username: username
+db_password: pass
+db_database: minememer
+
+# DO NOT EDIT THE FOLLOWING LINE **NO MATTER WHAT**
+config-version: 1.0 # EDITING THIS CAN BREAK THE PLUGIN

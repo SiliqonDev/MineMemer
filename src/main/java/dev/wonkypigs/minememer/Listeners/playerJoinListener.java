@@ -8,7 +8,7 @@ import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class PlayerJoinListener implements Listener {
+public class playerJoinListener implements Listener {
     private static final MineMemer plugin = MineMemer.getInstance();
 
     @EventHandler

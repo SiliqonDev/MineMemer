@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 import java.sql.ResultSet;
 import java.util.UUID;
 
-import static dev.wonkypigs.minememer.Helpers.*;
+import static dev.wonkypigs.minememer.helpers.*;
 
 @CommandAlias("mm|minememer")
 public class withdrawCommand extends BaseCommand {
