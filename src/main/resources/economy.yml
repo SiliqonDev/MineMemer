@@ -1,6 +1,7 @@
-currency-name: "boops" # Thing big, think boops!
+currency-name: "boops"
+starting-bank-limit: 10000 # Don't put this in negative (common sense)
 
-beg-give-range: [100, 200]
+beg-give-range: [150, 200]
 beg-giver-names:
   - "placeholderLover1000"
   - "Average Anime Fan"
@@ -8,9 +9,12 @@ beg-giver-names:
   - "Thy mum"
   - "Thine hath no rizz"
   - "Ray Cist"
+beg-giver-messages: # Allowed to use {currency} if you want to
+  - "*hands over some spare {currency}*"
+  - "Here, have some {currency}"
 
 search-doing-range: [100, 200]
-search-doing-places: # Must have atleast 3 in list or else goofy ahh stuff will happen
+search-doing-places: # Must have at least 3 in list or else goofy stuff will happen
   - "Nowhere"
   - "Somewhere"
   - "Where?"

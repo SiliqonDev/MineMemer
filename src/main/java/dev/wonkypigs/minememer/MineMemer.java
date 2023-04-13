@@ -9,6 +9,7 @@ import dev.wonkypigs.minememer.Commands.PlayerCommands.Economy.MakingMoney.searc
 import dev.wonkypigs.minememer.Listeners.MenuListeners.searchMenuListener;
 import dev.wonkypigs.minememer.Listeners.playerJoinListener;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,18 +20,23 @@ public final class MineMemer extends JavaPlugin {
     private static MineMemer instance;{ instance = this; }
     public String db_type, host, database, username, password; public int port;
     private Connection connection;
-    public YamlConfiguration lang, economy, config;
+    private File langFile; public FileConfiguration lang;
+    private File economyFile; public FileConfiguration economy;
+
     public String currencyName;
 
     @Override
     public void onEnable() {
         // Plugin startup logic
         getLogger().info("Starting up...");
-        //
+        // all configs loading up
+        saveDefaultConfig();
+        createLangFile();
+        createEconomyFile();
+        // database init
+        getDatabaseInfo();
         mysqlSetup();
-        getConf();
-        getLang();
-        getEconomy();
+        // register imp stuff
         registerCommands();
         registerListeners();
         //
@@ -60,28 +66,40 @@ public final class MineMemer extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new searchMenuListener(), this);
     }
 
-    public void getLang() {
-        File file = new File(getDataFolder(), "lang.yml");
-        lang = YamlConfiguration.loadConfiguration(file);
+    public FileConfiguration getLang() {
+        return this.lang;
     }
-    public void getEconomy() {
-        File file = new File(getDataFolder(), "economy.yml");
-        economy = YamlConfiguration.loadConfiguration(file);
+    private void createLangFile() {
+        langFile = new File(getDataFolder(), "lang.yml");
+        if (!langFile.exists()) {
+            langFile.getParentFile().mkdirs();
+            saveResource("lang.yml", false);
+        }
+
+        lang = YamlConfiguration.loadConfiguration(langFile);
+    }
+    public FileConfiguration getEconomy() {
+        return this.economy;
+    }
+    private void createEconomyFile() {
+        economyFile = new File(getDataFolder(), "economy.yml");
+        if (!economyFile.exists()) {
+            economyFile.getParentFile().mkdirs();
+            saveResource("economy.yml", false);
+        }
+
+        economy = YamlConfiguration.loadConfiguration(economyFile);
         currencyName = economy.getString("currency-name");
-    }
-    public void getConf() {
-        File file = new File(getDataFolder(), "config.yml");
-        config = YamlConfiguration.loadConfiguration(file);
     }
 
     public void getDatabaseInfo() {
         try {
-            db_type = config.getString("db_type");
-            host = config.getString("db_host");
-            port = config.getInt("db_port");
-            database = config.getString("db_database");
-            username = config.getString("db_username");
-            password = config.getString("db_password");
+            db_type = getConfig().getString("db_type");
+            host = getConfig().getString("db_host");
+            port = getConfig().getInt("db_port");
+            database = getConfig().getString("db_database");
+            username = getConfig().getString("db_username");
+            password = getConfig().getString("db_password");
         }
         catch (Exception e) {
             e.printStackTrace();

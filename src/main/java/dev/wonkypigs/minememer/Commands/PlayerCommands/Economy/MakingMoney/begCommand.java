@@ -3,8 +3,8 @@ package dev.wonkypigs.minememer.Commands.PlayerCommands.Economy.MakingMoney;
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.Subcommand;
+import co.aikar.commands.annotation.Syntax;
 import dev.wonkypigs.minememer.MineMemer;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -17,11 +17,7 @@ public class begCommand extends BaseCommand {
     private static final MineMemer plugin = MineMemer.getInstance();
 
     @Subcommand("beg")
-    public void begPlayer(CommandSender sender) {
-        if (!checkSenderIsPlayer(sender)) {
-            return;
-        }
-        Player player = (Player) sender;
+    public void begPlayer(Player player) {
         playerDidABeg(player);
     }
 
@@ -33,10 +29,15 @@ public class begCommand extends BaseCommand {
             );
             return;
         }
+        Random begRandom = new Random();
+
         // get giver name
         List<String> giverNames = plugin.economy.getStringList("beg-giver-names");
-        Random giverRandom = new Random();
-        String giverName = giverNames.get(giverRandom.nextInt(giverNames.size()));
+        String giverName = giverNames.get(begRandom.nextInt(giverNames.size()));
+
+        // get giver message
+        List<String> giverMessages = plugin.economy.getStringList("beg-giver-messages");
+        String giverMessage = giverMessages.get(begRandom.nextInt(giverMessages.size())).replace("{currency}", plugin.currencyName);
 
         // get given amount
         List<Integer> giveAmountRange = plugin.economy.getIntegerList("beg-give-range");
@@ -47,7 +48,7 @@ public class begCommand extends BaseCommand {
         player.sendMessage(plugin.lang.getString("beg-done-message")
                 .replace("&", "§")
                 .replace("{giver}", giverName)
-                .replace("{message}", "")
+                .replace("{message}", giverMessage)
                 .replace("{amount}", String.valueOf(givenAmount))
                 .replace("{currency}", plugin.currencyName)
         );

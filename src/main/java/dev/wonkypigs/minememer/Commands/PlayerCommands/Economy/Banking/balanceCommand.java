@@ -7,8 +7,6 @@ import dev.wonkypigs.minememer.MineMemer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -18,6 +16,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 import static dev.wonkypigs.minememer.helpers.*;
 
@@ -26,32 +25,18 @@ public class balanceCommand extends BaseCommand {
     private static final MineMemer plugin = MineMemer.getInstance();
 
     @Subcommand("bank|balance")
-    public void viewBankSelf(CommandSender sender) throws Exception {
-        if (checkSenderIsPlayer(sender)) {
-            return;
-        }
-        Player player = (Player) sender;
+    public void viewBankSelf(Player player) throws Exception {
         showPlayerBank(player, player.getUniqueId());
     }
 
     @Syntax("<player>")
     @CommandCompletion("*")
     @Subcommand("bank|balance")
-    public void viewBankOther(CommandSender sender, Command command, String label, String[] args) throws Exception {
-        if (!checkSenderIsPlayer(sender)) {
-            return;
-        }
-        Player player = (Player) sender;
-        ResultSet tUUIDresult = getPlayerUUIDByName(args[0]).get();
-        if (tUUIDresult.next()) {
-            sendErrorToPlayer(player, plugin.lang.getString("player-not-found-error"));
-            return;
-        }
-        UUID tUUID = UUID.fromString(tUUIDresult.getString("uuid"));
-        showPlayerBank(player, tUUID);
+    public void viewBankOther(Player player, OfflinePlayer target) throws Exception {
+        showPlayerBank(player, target.getUniqueId());
     }
 
-    public void showPlayerBank(Player player, UUID targetUUID) throws Exception {
+    public void showPlayerBank(Player player, UUID targetUUID) {
         Inventory inv;
         OfflinePlayer target;
         if (player.getUniqueId().equals(targetUUID)) {
@@ -67,60 +52,80 @@ public class balanceCommand extends BaseCommand {
             );
         }
         // get user's bank data
-        ResultSet results = grabBankData(targetUUID).get();
+        CompletableFuture<ResultSet> future = CompletableFuture.supplyAsync(() -> {
+            ResultSet results = grabBankData(targetUUID);
+            return results;
+        }).whenComplete((result, exception) -> {
+            if (exception != null) {
+                exception.printStackTrace();
+            }
+        });
 
-        // set local variables for the data
-        int purse = results.getInt("purse");
-        int bankStored = results.getInt("bankStored");
-        int bankLimit = results.getInt("bankLimit");
+        future.thenAccept((results) -> {
+            // set local variables for the data
+            int purse = 0, bankStored = 0, bankLimit = 0;
+            try {
+                purse = results.getInt("purse");
+                bankStored = results.getInt("bankStored");
+                bankLimit = results.getInt("bankLimit");
+            } catch (Exception e) {
+                sendErrorToPlayer(player, plugin.lang.getString("player-not-found-error"));
+            }
+            // menu background
+            for (int i = 0; i < 27; i++) {
+                ItemStack item = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
+                ItemMeta meta = item.getItemMeta();
+                meta.setDisplayName("");
+                item.setItemMeta(meta);
+                inv.setItem(i, item);
+            }
 
-        // menu background
-        for (int i = 0; i < 27; i++) {
-            ItemStack item = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
-            ItemMeta meta = item.getItemMeta();
-            meta.setDisplayName("");
-            item.setItemMeta(meta);
-            inv.setItem(i, item);
-        }
+            // Player head item
+            ItemStack skullItem = generatePlayerHead(target);
+            SkullMeta skullMeta = (SkullMeta) skullItem.getItemMeta();
+            skullMeta.setDisplayName(plugin.lang.getString("bank-player-skull-item-name")
+                    .replace("&", "§")
+                    .replace("{name}", player.getDisplayName())
+            );
+            ArrayList<String> lore = new ArrayList<>();
+            lore.add(plugin.lang.getString("bank-player-skull-lore")
+                    .replace("&", "§")
+                    .replace("{amount}", String.valueOf(purse+bankStored))
+                    .replace("{currency}", plugin.currencyName)
+            );
+            skullMeta.setLore(lore);
+            skullItem.setItemMeta(skullMeta);
+            inv.setItem(4, skullItem);
 
-        // Purse item
-        ItemStack balanceItem = new ItemStack(Material.PAPER);
-        ItemMeta balanceMeta = balanceItem.getItemMeta();
-        balanceMeta.setDisplayName((plugin.lang.getString("bank-purse-item-name"))
-                .replace("&", "§")
-                .replace("{purseMoney}", String.valueOf(purse))
-                .replace("{currency}", plugin.currencyName)
-        );
-        balanceItem.setItemMeta(balanceMeta);
-        inv.setItem(11, balanceItem);
+            // Bank item
+            ItemStack bankItem = new ItemStack(Material.GOLD_BLOCK);
+            ItemMeta bankMeta = bankItem.getItemMeta();
+            bankMeta.setDisplayName(plugin.lang.getString("bank-bank-item-name")
+                    .replace("&", "§")
+                    .replace("{bankMoney}", String.valueOf(bankStored))
+                    .replace("{bankLimit}", String.valueOf(bankLimit))
+                    .replace("{currency}", plugin.currencyName)
+            );
+            bankItem.setItemMeta(bankMeta);
+            inv.setItem(11, bankItem);
 
-        // Player head item
-        ItemStack skullItem = generatePlayerHead(target);
-        SkullMeta skullMeta = (SkullMeta) skullItem.getItemMeta();
-        skullMeta.setDisplayName(plugin.lang.getString("bank-player-skull-item-name")
-                .replace("&", "§")
-        );
-        ArrayList<String> lore = new ArrayList<>();
-        lore.add(plugin.lang.getString("bank-player-skull-lore")
-                .replace("&", "§")
-                .replace("{amount}", String.valueOf(purse+bankStored))
-                .replace("{currency}", plugin.currencyName)
-        );
-        skullMeta.setLore(lore);
-        skullItem.setItemMeta(skullMeta);
-        inv.setItem(4, skullItem);
+            // Purse item
+            ItemStack balanceItem = new ItemStack(Material.PAPER);
+            ItemMeta balanceMeta = balanceItem.getItemMeta();
+            plugin.getLogger().info(plugin.currencyName);
+            plugin.getLogger().info("" + purse);
+            balanceMeta.setDisplayName((plugin.lang.getString("bank-purse-item-name"))
+                    .replace("&", "§")
+                    .replace("{currency}", plugin.currencyName)
+                    .replace("{purseMoney}", String.valueOf(purse))
+            );
+            balanceItem.setItemMeta(balanceMeta);
+            inv.setItem(15, balanceItem);
 
-        // Bank item
-        ItemStack bankItem = new ItemStack(Material.GOLD_BLOCK);
-        ItemMeta bankMeta = bankItem.getItemMeta();
-        bankMeta.setDisplayName(plugin.lang.getString("bank-bank-item-name")
-                .replace("&", "§")
-                .replace("{bankMoney}", String.valueOf(bankStored))
-                .replace("{bankLimit}", String.valueOf(bankLimit))
-                .replace("{currency}", plugin.currencyName)
-        );
-        bankItem.setItemMeta(bankMeta);
-        inv.setItem(15, bankItem);
-        player.openInventory(inv);
+            // open menu
+            Bukkit.getScheduler().runTask(plugin, () -> {
+                player.openInventory(inv);
+            });
+        });
     }
 }

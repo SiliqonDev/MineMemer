@@ -35,7 +35,7 @@ public class searchMenuListener implements Listener {
             int givenAmount = new Random().ints(giveAmountRange.get(0), giveAmountRange.get(1)).findFirst().getAsInt();
             gettinThatBread(player, givenAmount);
 
-            player.sendMessage(plugin.lang.getString("beg-done-message")
+            player.sendMessage(plugin.lang.getString("search-done-message")
                     .replace("&", "§")
                     .replace("{place}", e.getCurrentItem().getItemMeta().getDisplayName())
                     .replace("{amount}", String.valueOf(givenAmount))

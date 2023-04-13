@@ -5,7 +5,6 @@ import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.Subcommand;
 import dev.wonkypigs.minememer.MineMemer;
 import org.bukkit.Material;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -13,7 +12,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
-import static dev.wonkypigs.minememer.helpers.checkSenderIsPlayer;
 import static dev.wonkypigs.minememer.helpers.pickNRandom;
 
 @CommandAlias("mm|minememer")
@@ -21,11 +19,7 @@ public class searchCommand extends BaseCommand {
     private static final MineMemer plugin = MineMemer.getInstance();
 
     @Subcommand("search")
-    public void searchForLoot(CommandSender sender) {
-        if (!checkSenderIsPlayer(sender)) {
-            return;
-        }
-        Player player = (Player) sender;
+    public void searchForLoot(Player player) {
         openSearchMenu(player);
     }
 

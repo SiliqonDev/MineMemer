@@ -6,7 +6,7 @@
 
     <groupId>dev.wonkypigs</groupId>
     <artifactId>MineMemer</artifactId>
-    <version>0.-1-Watchu-Lookin-At-I-Just-Started</version>
+    <version>beta -0.8</version>
     <packaging>jar</packaging>
 
     <name>MineMemer</name>

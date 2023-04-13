@@ -1,3 +1,11 @@
 dev\wonkypigs\minememer\MineMemer.class
-dev\wonkypigs\minememer\Helpers.class
-dev\wonkypigs\minememer\Commands\PlayerUtils\bankCommand.class
+dev\wonkypigs\minememer\Commands\PlayerCommands\Economy\MakingMoney\begCommand.class
+dev\wonkypigs\minememer\Listeners\playerJoinListener.class
+dev\wonkypigs\minememer\Commands\PlayerCommands\Economy\Banking\depositCommand.class
+dev\wonkypigs\minememer\Commands\PlayerCommands\Economy\Banking\withdrawCommand.class
+dev\wonkypigs\minememer\Commands\PlayerCommands\Economy\MakingMoney\searchCommand.class
+dev\wonkypigs\minememer\Listeners\MenuListeners\searchMenuListener.class
+dev\wonkypigs\minememer\Commands\PlayerCommands\Economy\Banking\balanceCommand.class
+dev\wonkypigs\minememer\Commands\GeneralUtils\reloadCommand.class
+dev\wonkypigs\minememer\Commands\PlayerCommands\Economy\MakingMoney\fishCommand.class
+dev\wonkypigs\minememer\helpers.class

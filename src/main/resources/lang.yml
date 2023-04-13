@@ -3,23 +3,23 @@
 # WARNING: DO NOT REMOVE ANYTHING WITHIN {} (curly brackets) OR ELSE STUFF WILL BREAK!
 
 # PLAYER
-must-be-a-player: "&cYou must be a player to use that!"
-no-perms-to-use: "&cYou do not have the permissions required to use this!"
 incorrect-usage: "&cIncorrect Usage! &8(&7{command}&8)"
-invalid-amount: "&cInvalid amount!"
 
 # BANKING
-self-bank-menu-title: "&aYour bank:"
-other-bank-menu-title: "&a{name}'s bank:"
+self-bank-menu-title: "&6&lYour bank:"
+other-bank-menu-title: "&6&l{name}'s bank:"
 bank-purse-item-name: "&6Purse: &a{purseMoney} {currency}"
 bank-bank-item-name: "&6Bank: &a{bankMoney}&8/&7{bankLimit} {currency}"
 bank-player-skull-item-name: "&f{name}"
 bank-player-skull-lore: "&6Total Money: &a{amount} {currency}"
-not-enough-money: "&cYou do not have enough money! &8(&7{amount}/{required} {currency}&8)"
+not-enough-money-purse: "&cYou do not have enough {currency}! &8(&7{amount}/{required}&8)"
+not-enough-money-bank: "&cYour bank doesn't have that much {currency}! &8(&7{amount}/{required}&8)"
 cannot-surpass-bank-limit: "&cYou cannot go over your bank limit! &8(&7{limit} {currency}&8)"
+withdrawn-from-bank: "&aYou withdrew {amount} {currency} from the bank."
+deposited-to-bank: "&aYou deposited {amount} {currency} to the bank."
 
-# ECO
-beg-done-message: "&c{giver}&7:&f *gives you some spare coins*\n&aYou just got {amount} {currency}!"
+# MAKING MONEY
+beg-done-message: "&c{giver}&7:&f {message}*\n&aYou just got {amount} {currency}!"
 beg-failed-message: "&cOOF! No one gave you any {currency}"
 search-menu-title: "&aSearching for big loot..."
 search-done-message: "&7Searching {place}...\n&aYou just got {amount} {currency}!"
