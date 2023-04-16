@@ -1,5 +1,5 @@
 name: MineMemer
-version: 'beta -0.8'
+version: 'beta -0.7'
 main: dev.wonkypigs.minememer.MineMemer
 api-version: 1.13
 prefix: MineMemer

@@ -6,13 +6,13 @@
 
     <groupId>dev.wonkypigs</groupId>
     <artifactId>MineMemer</artifactId>
-    <version>beta -0.8</version>
+    <version>beta -0.7</version>
     <packaging>jar</packaging>
 
     <name>MineMemer</name>
 
-    <description>The base idea of this plugin has definitely not been stolen from a very popular discord bot in
-        particular.
+    <description>The idea of this plugin has definitely not been stolen from a very popular discord bot in
+        particular. *wink* *wink*
     </description>
     <properties>
         <java.version>1.8</java.version>

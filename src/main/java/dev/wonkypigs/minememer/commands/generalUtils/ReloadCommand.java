@@ -1,4 +1,4 @@
-package dev.wonkypigs.minememer.Commands.GeneralUtils;
+package dev.wonkypigs.minememer.commands.generalUtils;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
@@ -8,7 +8,7 @@ import dev.wonkypigs.minememer.MineMemer;
 import org.bukkit.command.CommandSender;
 
 @CommandAlias("mm|minememer")
-public class reloadCommand extends BaseCommand {
+public class ReloadCommand extends BaseCommand {
     private static final MineMemer plugin = MineMemer.getInstance();
 
     @Subcommand("reload")

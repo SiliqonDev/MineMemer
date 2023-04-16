@@ -1,4 +1,4 @@
-package dev.wonkypigs.minememer.Commands.PlayerCommands.Economy.Banking;
+package dev.wonkypigs.minememer.commands.playerCommands.economy.banking;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
@@ -9,10 +9,10 @@ import java.sql.ResultSet;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
-import static dev.wonkypigs.minememer.helpers.*;
+import static dev.wonkypigs.minememer.helpers.EconomyUtils.*;
 
 @CommandAlias("mm|minememer")
-public class depositCommand extends BaseCommand {
+public class DepositCommand extends BaseCommand {
     private static final MineMemer plugin = MineMemer.getInstance();
 
     @Syntax("<amount>")
@@ -25,7 +25,7 @@ public class depositCommand extends BaseCommand {
         }
     }
 
-    public static void depositMoney(Player player, UUID pID, Integer amt) throws Exception {
+    public static void depositMoney(Player player, UUID pID, Integer amt) {
         // get user's bank data
         CompletableFuture<ResultSet> future = CompletableFuture.supplyAsync(() -> {
             ResultSet results = grabBankData(pID);

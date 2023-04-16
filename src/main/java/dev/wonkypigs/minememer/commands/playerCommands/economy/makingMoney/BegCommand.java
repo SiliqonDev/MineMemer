@@ -1,19 +1,18 @@
-package dev.wonkypigs.minememer.Commands.PlayerCommands.Economy.MakingMoney;
+package dev.wonkypigs.minememer.commands.playerCommands.economy.makingMoney;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.Subcommand;
-import co.aikar.commands.annotation.Syntax;
 import dev.wonkypigs.minememer.MineMemer;
 import org.bukkit.entity.Player;
 
 import java.util.List;
 import java.util.Random;
 
-import static dev.wonkypigs.minememer.helpers.*;
+import static dev.wonkypigs.minememer.helpers.EconomyUtils.*;
 
 @CommandAlias("mm|minememer")
-public class begCommand extends BaseCommand {
+public class BegCommand extends BaseCommand {
     private static final MineMemer plugin = MineMemer.getInstance();
 
     @Subcommand("beg")
@@ -22,13 +21,18 @@ public class begCommand extends BaseCommand {
     }
 
     public void playerDidABeg(Player player) {
-        if (pickRandomNum(1, 7) == 2) {
+        Random random = new Random();
+        int failChance = plugin.economy.getInt("beg-failure-chance");
+        // failure
+        if (!(random.ints(0, 101).findFirst().getAsInt() > failChance)) {
             player.sendMessage(plugin.lang.getString("beg-failed-message")
                     .replace("&", "§")
                     .replace("{currency}", plugin.currencyName)
             );
             return;
         }
+
+        // success
         Random begRandom = new Random();
 
         // get giver name

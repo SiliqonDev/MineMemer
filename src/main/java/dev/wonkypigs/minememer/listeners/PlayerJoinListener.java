@@ -1,4 +1,4 @@
-package dev.wonkypigs.minememer.Listeners;
+package dev.wonkypigs.minememer.listeners;
 
 import dev.wonkypigs.minememer.MineMemer;
 import org.bukkit.event.EventHandler;
@@ -8,7 +8,7 @@ import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class playerJoinListener implements Listener {
+public class PlayerJoinListener implements Listener {
     private static final MineMemer plugin = MineMemer.getInstance();
 
     @EventHandler
@@ -21,7 +21,7 @@ public class playerJoinListener implements Listener {
     private boolean isRegistered(AsyncPlayerPreLoginEvent e) {
         try {
             PreparedStatement statement = plugin.getConnection()
-                    .prepareStatement("SELECT * FROM mm_pdata WHERE UUID = ?");
+                    .prepareStatement("SELECT * FROM mm_pdata WHERE uuid = ?");
             statement.setString(1,e.getUniqueId().toString());
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {

@@ -1,4 +1,4 @@
-package dev.wonkypigs.minememer.Commands.PlayerCommands.Economy.Banking;
+package dev.wonkypigs.minememer.commands.playerCommands.economy.banking;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
@@ -11,10 +11,10 @@ import java.sql.ResultSet;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
-import static dev.wonkypigs.minememer.helpers.*;
+import static dev.wonkypigs.minememer.helpers.EconomyUtils.*;
 
 @CommandAlias("mm|minememer")
-public class withdrawCommand extends BaseCommand {
+public class WithdrawCommand extends BaseCommand {
     private static final MineMemer plugin = MineMemer.getInstance();
 
     @Syntax("<amount>")

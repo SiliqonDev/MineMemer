@@ -1,8 +1,9 @@
-package dev.wonkypigs.minememer.Commands.PlayerCommands.Economy.MakingMoney;
+package dev.wonkypigs.minememer.commands.playerCommands.economy.makingMoney;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.Subcommand;
+import dev.wonkypigs.minememer.GUIHolders;
 import dev.wonkypigs.minememer.MineMemer;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -10,12 +11,14 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import static dev.wonkypigs.minememer.helpers.pickNRandom;
+import static dev.wonkypigs.minememer.helpers.GeneralUtils.*;
+import static dev.wonkypigs.minememer.helpers.MenuHelpers.setMenuBackground;
 
 @CommandAlias("mm|minememer")
-public class searchCommand extends BaseCommand {
+public class SearchCommand extends BaseCommand {
     private static final MineMemer plugin = MineMemer.getInstance();
 
     @Subcommand("search")
@@ -24,7 +27,7 @@ public class searchCommand extends BaseCommand {
     }
 
     public void openSearchMenu(Player player) {
-        Inventory menu = plugin.getServer().createInventory(null, 27, plugin.lang.getString("search-menu-title")
+        Inventory menu = plugin.getServer().createInventory(new GUIHolders("search"), 27, plugin.lang.getString("search-menu-title")
                 .replace("&", "§")
         );
 
@@ -33,13 +36,9 @@ public class searchCommand extends BaseCommand {
         List<String> searchOptions = pickNRandom(searchOptionList, 3);
 
         // menu background
-        for (int i = 0; i < 27; i++) {
-            ItemStack item = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
-            ItemMeta meta = item.getItemMeta();
-            meta.setDisplayName("");
-            item.setItemMeta(meta);
-            menu.setItem(i, item);
-        }
+        List<Material> matList = new ArrayList<>();
+        matList.add(plugin.menubg);
+        setMenuBackground(menu, matList);
 
         // search option 1 item
         ItemStack option1Item = new ItemStack(Material.PAPER);

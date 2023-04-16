@@ -1,20 +1,25 @@
 package dev.wonkypigs.minememer;
 
 import co.aikar.commands.BukkitCommandManager;
-import dev.wonkypigs.minememer.Commands.PlayerCommands.Economy.Banking.balanceCommand;
-import dev.wonkypigs.minememer.Commands.PlayerCommands.Economy.Banking.depositCommand;
-import dev.wonkypigs.minememer.Commands.PlayerCommands.Economy.Banking.withdrawCommand;
-import dev.wonkypigs.minememer.Commands.PlayerCommands.Economy.MakingMoney.begCommand;
-import dev.wonkypigs.minememer.Commands.PlayerCommands.Economy.MakingMoney.searchCommand;
-import dev.wonkypigs.minememer.Listeners.MenuListeners.searchMenuListener;
-import dev.wonkypigs.minememer.Listeners.playerJoinListener;
+import dev.wonkypigs.minememer.commands.adminCommands.*;
+import dev.wonkypigs.minememer.commands.generalUtils.InventoryCommand;
+import dev.wonkypigs.minememer.commands.playerCommands.economy.banking.*;
+import dev.wonkypigs.minememer.commands.playerCommands.economy.makingMoney.*;
+import dev.wonkypigs.minememer.listeners.menuListeners.*;
+import dev.wonkypigs.minememer.listeners.PlayerJoinListener;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import static dev.wonkypigs.minememer.helpers.InventoryUtils.getValidItemList;
 
 public final class MineMemer extends JavaPlugin {
     private static MineMemer instance;{ instance = this; }
@@ -22,8 +27,10 @@ public final class MineMemer extends JavaPlugin {
     private Connection connection;
     private File langFile; public FileConfiguration lang;
     private File economyFile; public FileConfiguration economy;
-
+    private File itemsFile; public FileConfiguration items;
+    public Material menubg, menubg2;
     public String currencyName;
+    private BukkitCommandManager commandManager;
 
     @Override
     public void onEnable() {
@@ -33,6 +40,7 @@ public final class MineMemer extends JavaPlugin {
         saveDefaultConfig();
         createLangFile();
         createEconomyFile();
+        createItemsFile();
         // database init
         getDatabaseInfo();
         mysqlSetup();
@@ -53,22 +61,45 @@ public final class MineMemer extends JavaPlugin {
     }
 
     public void registerCommands() {
-        BukkitCommandManager commandManager = new BukkitCommandManager(this);
+        commandManager = new BukkitCommandManager(this);
+        // banking
+        commandManager.registerCommand(new BalanceCommand());
+        commandManager.registerCommand(new DepositCommand());
+        commandManager.registerCommand(new WithdrawCommand());
+        // makin bank
+        commandManager.registerCommand(new BegCommand());
+        commandManager.registerCommand(new SearchCommand());
+        commandManager.registerCommand(new FishCommand());
+        // admin
+        commandManager.registerCommand(new GiveEcoCommand());
+        commandManager.registerCommand(new TakeEcoCommand());
+        commandManager.registerCommand(new GiveItemCommand());
+        commandManager.registerCommand(new TakeItemCommand());
+        // misc
+        commandManager.registerCommand(new InventoryCommand());
+        // commandManager.registerCommand(new StoreCommand()); <--- not ready yet
 
-        commandManager.registerCommand(new balanceCommand());
-        commandManager.registerCommand(new depositCommand());
-        commandManager.registerCommand(new withdrawCommand());
-        commandManager.registerCommand(new begCommand());
-        commandManager.registerCommand(new searchCommand());
+        // command completions
+        // --- all offline players "@AllPlayers"
+        commandManager.getCommandCompletions().registerCompletion("AllPlayers", context -> {
+            List<String> nameList = new ArrayList<>();
+            for (OfflinePlayer player: Bukkit.getOfflinePlayers()) {
+                nameList.add(player.getName());
+            }
+            return nameList;
+        });
+        // --- all items "@AllItems"
+        commandManager.getCommandCompletions().registerCompletion("AllItems", context -> getValidItemList());
     }
     public void registerListeners() {
-        getServer().getPluginManager().registerEvents(new playerJoinListener(), this);
-        getServer().getPluginManager().registerEvents(new searchMenuListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
+        getServer().getPluginManager().registerEvents(new SearchMenuListener(), this);
+        getServer().getPluginManager().registerEvents(new BankMenuListener(), this);
+        getServer().getPluginManager().registerEvents(new InventoryMenuListener(), this);
+        getServer().getPluginManager().registerEvents(new FishingMenuListener(), this);
+        //getServer().getPluginManager().registerEvents(new StoreCommandListener(), this); <--- not ready yet
     }
 
-    public FileConfiguration getLang() {
-        return this.lang;
-    }
     private void createLangFile() {
         langFile = new File(getDataFolder(), "lang.yml");
         if (!langFile.exists()) {
@@ -77,9 +108,6 @@ public final class MineMemer extends JavaPlugin {
         }
 
         lang = YamlConfiguration.loadConfiguration(langFile);
-    }
-    public FileConfiguration getEconomy() {
-        return this.economy;
     }
     private void createEconomyFile() {
         economyFile = new File(getDataFolder(), "economy.yml");
@@ -90,6 +118,17 @@ public final class MineMemer extends JavaPlugin {
 
         economy = YamlConfiguration.loadConfiguration(economyFile);
         currencyName = economy.getString("currency-name");
+    }
+    private void createItemsFile() {
+        itemsFile = new File(getDataFolder(), "items.yml");
+        if (!itemsFile.exists()) {
+            itemsFile.getParentFile().mkdirs();
+            saveResource("items.yml", false);
+        }
+
+        items = YamlConfiguration.loadConfiguration(itemsFile);
+        menubg = Material.valueOf(getConfig().getString("menu-background-item"));
+        menubg2 = Material.valueOf(getConfig().getString("menu-background-item-2"));
     }
 
     public void getDatabaseInfo() {
@@ -128,13 +167,13 @@ public final class MineMemer extends JavaPlugin {
                 } else {
                     // shut off plugin and send error
                     getLogger().severe("------------------------");
-                    getLogger().severe("Invalid database type in config.yml!\n" +
-                            "Please use either 'mysql' or 'sqlite'.");
+                    getLogger().severe("Invalid database type in config.yml!\nPlease use either 'mysql' or 'sqlite'.");
                     getLogger().severe("------------------------");
                     Bukkit.getPluginManager().disablePlugin(this);
                 }
 
                 getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS mm_pdata (uuid TEXT, name TEXT, purse int, bankStored int, bankLimit int)").executeUpdate();
+                getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS mm_inventory (uuid TEXT, item TEXT, amount int)").executeUpdate();
                 getLogger().info("Successfully connected to the MySQL database");
             }
         } catch (Exception e) {
