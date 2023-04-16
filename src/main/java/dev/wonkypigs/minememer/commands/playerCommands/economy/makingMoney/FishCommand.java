@@ -30,7 +30,7 @@ public class FishCommand extends BaseCommand {
     }
 
     public void fish(Player player) {
-        if (getItemAmount(player, "fishing_rod") == 0) {
+        if (getPlayerItemAmount(player, "fishing_rod") == 0) {
             player.sendMessage(plugin.lang.getString("no-fishing-rod")
                     .replace("&", "§")
             );
@@ -40,19 +40,17 @@ public class FishCommand extends BaseCommand {
                 .replace("&", "§")
         );
         // menu background
-        List<Material> matList = new ArrayList<>();
-        matList.add(plugin.menubg2);
-        matList.add(Material.BLUE_STAINED_GLASS_PANE);
-        matList.add(plugin.menubg2);
-        setMenuBackground(inv, matList);
+        setMenuBackground(inv, plugin.menubg2, 0, 9);
+        setMenuBackground(inv, Material.BLUE_STAINED_GLASS_PANE, 9, 36);
+        setMenuBackground(inv, plugin.menubg2, 36, 45);
 
         // top fishing rod item
         ItemStack rod = new ItemStack(Material.FISHING_ROD);
         ItemMeta rodMeta = rod.getItemMeta();
-        rodMeta.setDisplayName(plugin.lang.getString("fishing-rod-item-name")
+        rodMeta.setDisplayName(plugin.lang.getString("fishing-rod-menu-item-name")
                 .replace("&", "§")
         );
-        List<String> loreList = plugin.items.getStringList("fishing-rod-item-lore");
+        List<String> loreList = plugin.items.getStringList("fishing-rod-menu-item-lore");
         ArrayList<String> lore = new ArrayList<>();
         for (String line: loreList) {
             lore.add(line.replace("&", "§"));

@@ -3,7 +3,6 @@ package dev.wonkypigs.minememer.helpers;
 import dev.wonkypigs.minememer.MineMemer;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
@@ -30,14 +29,6 @@ public class GeneralUtils {
             ex.printStackTrace();
         }
         return false;
-    }
-    public static ItemStack generatePlayerHead(OfflinePlayer player) {
-        ItemStack pHead = new ItemStack(Material.PLAYER_HEAD);
-        SkullMeta headMeta = (SkullMeta) pHead.getItemMeta();
-        headMeta.setOwningPlayer(player);
-        pHead.setItemMeta(headMeta);
-
-        return pHead;
     }
     public static List<String> pickNRandom(List<String> lst, int n) {
         List<String> copy = new ArrayList<>(lst);

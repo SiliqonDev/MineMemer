@@ -5,7 +5,6 @@ import co.aikar.commands.annotation.*;
 import dev.wonkypigs.minememer.GUIHolders;
 import dev.wonkypigs.minememer.MineMemer;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -20,6 +19,7 @@ import java.util.concurrent.CompletableFuture;
 
 import static dev.wonkypigs.minememer.helpers.GeneralUtils.*;
 import static dev.wonkypigs.minememer.helpers.InventoryUtils.*;
+import static dev.wonkypigs.minememer.helpers.MenuHelpers.*;
 
 @CommandAlias("mm|minememer")
 public class InventoryCommand extends BaseCommand {
@@ -74,6 +74,9 @@ public class InventoryCommand extends BaseCommand {
 
     public void inventoryDisplaySetup(OfflinePlayer target, Inventory inv, Map<String, Integer> itemList) {
         // menu background
+        setMenuBackground(inv, plugin.menubg2, 0, 9);
+        setMenuBackground(inv, plugin.menubg2, 36, 45);
+        /*
         for (int i = 0; i < 9; i++) {
             ItemStack item = new ItemStack(plugin.menubg2);
             ItemMeta meta = item.getItemMeta();
@@ -88,32 +91,33 @@ public class InventoryCommand extends BaseCommand {
             item.setItemMeta(meta);
             inv.setItem(i, item);
         }
+         */
+
         // player head item
-        ItemStack skullItem = generatePlayerHead(target);
-        SkullMeta skullMeta = (SkullMeta) skullItem.getItemMeta();
-        skullMeta.setDisplayName(plugin.lang.getString("inventory-player-skull-name")
+        String skullDisplayName = plugin.lang.getString("inventory-player-skull-name")
                 .replace("&", "§")
-                .replace("{name}", target.getName())
-        );
-        List<String> loreList = plugin.items.getStringList("inventory-player-skull-lore");
-        ArrayList<String> lore = new ArrayList<>();
-        for (String line: loreList) {
-            lore.add(line
+                .replace("{name}", target.getName());
+
+        List<String> skullLoreList = plugin.items.getStringList("inventory-player-skull-lore");
+        ArrayList<String> skullLore = new ArrayList<>();
+        for (String line: skullLoreList) {
+            skullLore.add(line
                     .replace("&", "§")
                     .replace("{amount}", String.valueOf(itemList.size()))
             );
         }
-        skullMeta.setLore(lore);
-        skullItem.setItemMeta(skullMeta);
+
+        ItemStack skullItem = generatePlayerHead(target, skullDisplayName, skullLore);
         inv.setItem(4, skullItem);
 
+        // set it up
         int curr_slot = 9;
         int max_slot = 35;
         for (Map.Entry<String, Integer> entry: itemList.entrySet()) {
             if (curr_slot > max_slot) {
                 continue;
             }
-            ItemStack invItem = setupInventoryItem(target, entry.getKey(), entry.getValue());
+            ItemStack invItem = setupInventoryItem(entry.getKey(), entry.getValue());
             inv.setItem(curr_slot, invItem);
             curr_slot++;
         }

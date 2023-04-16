@@ -32,11 +32,6 @@ public class StoreCommand extends BaseCommand {
                 .replace("&", "§")
         );
         // menu background
-        List<Material> matList = new ArrayList<>();
-        matList.add(plugin.menubg2);
-        matList.add(plugin.menubg);
-        matList.add(plugin.menubg2);
-        setMenuBackground(inv, matList);
 
         // buy button
         ItemStack buyButton = new ItemStack(Material.STONE_PICKAXE);

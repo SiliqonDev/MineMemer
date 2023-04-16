@@ -7,6 +7,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import static dev.wonkypigs.minememer.helpers.EconomyUtils.*;
+import static dev.wonkypigs.minememer.helpers.GeneralUtils.*;
 
 @CommandPermission("mm.admin.giveeco")
 @CommandAlias("mm|minememer")
@@ -16,7 +17,12 @@ public class GiveEcoCommand extends BaseCommand {
     @Syntax("<player> <amount>")
     @CommandCompletion("@AllPlayers")
     @Subcommand("giveeco|ecogive")
-    public void giveEcoToPlayer(Player player, @Values("@AllPlayer") OfflinePlayer target, int amount) {
+    public void giveEcoToPlayer(Player player, @Values("@AllPlayers") OfflinePlayer target, int amount) {
+        if (!isPlayerRegistered(target)) {
+            player.sendMessage(plugin.lang.getString("player-not-found")
+                    .replace("&", "§"));
+            return;
+        }
         gettinThatBread(target, amount);
         player.sendMessage(plugin.lang.getString("given-eco")
                 .replace("&", "§")

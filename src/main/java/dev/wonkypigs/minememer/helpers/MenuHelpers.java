@@ -1,45 +1,38 @@
 package dev.wonkypigs.minememer.helpers;
 
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class MenuHelpers {
 
-    public static void setMenuBackground(Inventory inv, List<Material> materials) {
-        if (inv.getSize() == 45) {
-            for (int i = 0; i < 9; i++) {
-                ItemStack item = new ItemStack(materials.get(0));
-                ItemMeta meta = item.getItemMeta();
-                meta.setDisplayName(" ");
-                item.setItemMeta(meta);
-                inv.setItem(i, item);
-            }
-            for (int i = 9; i < 36; i++) {
-                ItemStack item = new ItemStack(materials.get(1));
-                ItemMeta meta = item.getItemMeta();
-                meta.setDisplayName(" ");
-                item.setItemMeta(meta);
-                inv.setItem(i, item);
-            }
-            for (int i = 36; i < 45; i++) {
-                ItemStack item = new ItemStack(materials.get(2));
-                ItemMeta meta = item.getItemMeta();
-                meta.setDisplayName(" ");
-                item.setItemMeta(meta);
-                inv.setItem(i, item);
-            }
-        } else if (inv.getSize() == 27) {
-            for (int i = 0; i < 27; i++) {
-                ItemStack item = new ItemStack(materials.get(0));
-                ItemMeta meta = item.getItemMeta();
-                meta.setDisplayName(" ");
-                item.setItemMeta(meta);
-                inv.setItem(i, item);
-            }
+    public static void setMenuBackground(Inventory inv, Material material, int start, int stop) {
+        for (int i = start; i < stop; i++) {
+            ItemStack item = new ItemStack(material);
+            ItemMeta meta = item.getItemMeta();
+            meta.setDisplayName(" ");
+            item.setItemMeta(meta);
+            inv.setItem(i, item);
         }
+    }
+    public static ItemStack generatePlayerHead(OfflinePlayer player, String displayName, ArrayList<String> lore) {
+        ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
+        SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
+        skullMeta.setOwningPlayer(player);
+
+        // display name
+        skullMeta.setDisplayName(displayName);
+
+        // lore
+        skullMeta.setLore(lore);
+
+        // done
+        skull.setItemMeta(skullMeta);
+        return skull;
     }
 }

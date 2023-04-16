@@ -19,7 +19,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static dev.wonkypigs.minememer.helpers.InventoryUtils.getValidItemList;
+import static dev.wonkypigs.minememer.helpers.InventoryUtils.*;
+import static dev.wonkypigs.minememer.helpers.commandHelpers.FishingHelper.*;
 
 public final class MineMemer extends JavaPlugin {
     private static MineMemer instance;{ instance = this; }
@@ -38,6 +39,7 @@ public final class MineMemer extends JavaPlugin {
         getLogger().info("Starting up...");
         // all configs loading up
         saveDefaultConfig();
+        getConfigValues();
         createLangFile();
         createEconomyFile();
         createItemsFile();
@@ -46,6 +48,7 @@ public final class MineMemer extends JavaPlugin {
         mysqlSetup();
         // register imp stuff
         registerCommands();
+        registerCommandCompletion();
         registerListeners();
         //
         getLogger().info("Startup Successful.");
@@ -78,7 +81,8 @@ public final class MineMemer extends JavaPlugin {
         // misc
         commandManager.registerCommand(new InventoryCommand());
         // commandManager.registerCommand(new StoreCommand()); <--- not ready yet
-
+    }
+    public void registerCommandCompletion() {
         // command completions
         // --- all offline players "@AllPlayers"
         commandManager.getCommandCompletions().registerCompletion("AllPlayers", context -> {
@@ -90,6 +94,8 @@ public final class MineMemer extends JavaPlugin {
         });
         // --- all items "@AllItems"
         commandManager.getCommandCompletions().registerCompletion("AllItems", context -> getValidItemList());
+        // --- all fish "@AllFish"
+        commandManager.getCommandCompletions().registerCompletion("AllFish", context -> getValidFishList());
     }
     public void registerListeners() {
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
@@ -100,6 +106,10 @@ public final class MineMemer extends JavaPlugin {
         //getServer().getPluginManager().registerEvents(new StoreCommandListener(), this); <--- not ready yet
     }
 
+    public void getConfigValues() {
+        menubg = Material.valueOf(getConfig().getString("menu-background-item"));
+        menubg2 = Material.valueOf(getConfig().getString("menu-background-item-2"));
+    }
     private void createLangFile() {
         langFile = new File(getDataFolder(), "lang.yml");
         if (!langFile.exists()) {
@@ -127,8 +137,6 @@ public final class MineMemer extends JavaPlugin {
         }
 
         items = YamlConfiguration.loadConfiguration(itemsFile);
-        menubg = Material.valueOf(getConfig().getString("menu-background-item"));
-        menubg2 = Material.valueOf(getConfig().getString("menu-background-item-2"));
     }
 
     public void getDatabaseInfo() {

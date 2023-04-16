@@ -1,5 +1,5 @@
-# ONLY USE VALID BUKKIT MATERIAL IDS FOR YOUR SERVER VERSION
-# OR ELSE STUFF WILL HAPPEN WHICH YOU DO NOT WANT HAPPENING
+# Only use valid bukkit material IDs compatible with your server version
+# for example: GRAY_STAINED_GLASS_PANE or COMMAND_BLOCK , etc
 menu-background-item: GRAY_STAINED_GLASS_PANE
 menu-background-item-2: BLACK_STAINED_GLASS_PANE
 

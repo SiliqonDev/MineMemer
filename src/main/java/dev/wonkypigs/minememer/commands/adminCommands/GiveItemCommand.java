@@ -6,6 +6,9 @@ import dev.wonkypigs.minememer.MineMemer;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
+import java.util.Locale;
+
+import static dev.wonkypigs.minememer.helpers.GeneralUtils.*;
 import static dev.wonkypigs.minememer.helpers.InventoryUtils.*;
 
 @CommandPermission("mm.admin.giveitem")
@@ -15,9 +18,14 @@ public class GiveItemCommand extends BaseCommand {
 
     @Syntax("<player> <item> [<amount>]")
     @CommandCompletion("@AllPlayers @AllItems")
-    @Subcommand("giveitem|itemgive")
+    @Subcommand("giveitem")
     public void giveItemToPlayer(Player player, @Values("@AllPlayers") OfflinePlayer target, @Values("@AllItems") String itemName, @Default("1") int amount) {
-        if (!checkItemValidity(itemName)) {
+        if (!isPlayerRegistered(target)) {
+            player.sendMessage(plugin.lang.getString("player-not-found")
+                    .replace("&", "§"));
+            return;
+        }
+        if (!checkItemValidity(itemName.toLowerCase())) {
             player.sendMessage(plugin.lang.getString("invalid-item")
                     .replace("&", "§")
             );

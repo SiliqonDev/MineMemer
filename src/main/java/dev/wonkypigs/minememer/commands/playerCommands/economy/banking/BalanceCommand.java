@@ -20,6 +20,7 @@ import java.util.concurrent.CompletableFuture;
 
 import static dev.wonkypigs.minememer.helpers.EconomyUtils.*;
 import static dev.wonkypigs.minememer.helpers.GeneralUtils.*;
+import static dev.wonkypigs.minememer.helpers.MenuHelpers.*;
 
 @CommandAlias("mm|minememer")
 public class BalanceCommand extends BaseCommand {
@@ -83,40 +84,45 @@ public class BalanceCommand extends BaseCommand {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         // menu background
+        setMenuBackground(inv, plugin.menubg2, 0, 9);
+        setMenuBackground(inv, plugin.menubg, 9, 36);
+        /*
         for (int i = 0; i < 9; i++) {
             ItemStack item = new ItemStack(plugin.menubg2);
             ItemMeta meta = item.getItemMeta();
-            meta.setDisplayName("");
+            meta.setDisplayName(" ");
             item.setItemMeta(meta);
             inv.setItem(i, item);
         }
         for (int i = 9; i < 36; i++) {
             ItemStack item = new ItemStack(plugin.menubg);
             ItemMeta meta = item.getItemMeta();
-            meta.setDisplayName("");
+            meta.setDisplayName(" ");
             item.setItemMeta(meta);
             inv.setItem(i, item);
         }
+         */
 
         // Player head item
-        ItemStack skullItem = generatePlayerHead(target);
-        SkullMeta skullMeta = (SkullMeta) skullItem.getItemMeta();
-        skullMeta.setDisplayName(plugin.lang.getString("bank-player-skull-name")
+        String skullDisplayName = plugin.lang.getString("bank-player-skull-name")
                 .replace("&", "§")
-                .replace("{name}", target.getName())
-        );
-        List<String> loreList = plugin.items.getStringList("bank-player-skull-lore");
-        ArrayList<String> lore = new ArrayList<>();
-        for (String line: loreList) {
-            lore.add(line
+                .replace("{name}", target.getName());
+
+        List<String> skullLoreList = plugin.items.getStringList("bank-player-skull-lore");
+        ArrayList<String> skullLore = new ArrayList<>();
+        for (String line: skullLoreList) {
+            plugin.getLogger().info(line);
+            skullLore.add(line
                     .replace("&", "§")
                     .replace("{amount}", String.valueOf(purse+bankStored))
                     .replace("{currency}", plugin.currencyName)
             );
         }
-        skullMeta.setLore(lore);
-        skullItem.setItemMeta(skullMeta);
+
+        plugin.getLogger().info(skullDisplayName);
+        ItemStack skullItem = generatePlayerHead(target, skullDisplayName, skullLore);
         inv.setItem(4, skullItem);
 
         // Bank item

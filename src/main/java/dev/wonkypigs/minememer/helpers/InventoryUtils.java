@@ -22,6 +22,9 @@ public class InventoryUtils {
             while (result.next()) {
                 String item = result.getString("item");
                 int amount = result.getInt("amount");
+                if (!checkItemValidity(item)) {
+                    removePlayerItem(player, item, amount);
+                }
                 itemList.put(item, amount);
             }
         } catch (Exception e) {
@@ -30,7 +33,7 @@ public class InventoryUtils {
         return itemList;
     }
     public static void givePlayerItem(OfflinePlayer player, String item, int amount) {
-        if (getItemAmount(player, item) != 0) {
+        if (getPlayerItemAmount(player, item) != 0) {
             try {
                 PreparedStatement statement = plugin.getConnection().prepareStatement("UPDATE mm_inventory SET amount = amount + ? WHERE uuid = ? AND item = ?");
                 statement.setInt(1, amount);
@@ -53,7 +56,7 @@ public class InventoryUtils {
         }
     }
     public static void removePlayerItem(OfflinePlayer player, String item, int amount) {
-        if (getItemAmount(player, item) - amount != 0) {
+        if ((getPlayerItemAmount(player, item) - amount) != 0) {
             try {
                 PreparedStatement statement = plugin.getConnection().prepareStatement("UPDATE mm_inventory SET amount = amount - ? WHERE uuid = ? AND item = ?");
                 statement.setInt(1, amount);
@@ -74,7 +77,7 @@ public class InventoryUtils {
             }
         }
     }
-    public static int getItemAmount(OfflinePlayer player, String itemName) {
+    public static int getPlayerItemAmount(OfflinePlayer player, String itemName) {
         int ans = 0;
         try {
             PreparedStatement statement = plugin.getConnection().prepareStatement("SELECT amount FROM mm_inventory WHERE uuid = ? AND item = ?");
@@ -89,10 +92,13 @@ public class InventoryUtils {
         }
         return ans;
     }
-    public static ItemStack setupInventoryItem(OfflinePlayer player, String itemName, int amount) {
+    public static ItemStack setupInventoryItem(String itemName, int amount) {
         String ymlPath = "items." + itemName;
 
         // setup item stack
+        if (amount > 64) {
+            amount = 64;
+        }
         ItemStack item = new ItemStack(Material.valueOf(plugin.items.getString(ymlPath + ".item_material")), amount);
         ItemMeta itemMeta = item.getItemMeta();
         // grab lore list
@@ -111,16 +117,14 @@ public class InventoryUtils {
         item.setItemMeta(itemMeta);
         return item;
     }
-
     public static List<String> getValidItemList() {
         List<String> itemList = new ArrayList<>();
         Set<String> itemNames = plugin.items.getConfigurationSection("items").getKeys(false);
         for (String item: itemNames) {
-            itemList.add(item);
+            itemList.add(item.toUpperCase());
         }
         return itemList;
     }
-
     public static boolean checkItemValidity(String item) {
         Set<String> itemNames = plugin.items.getConfigurationSection("items").getKeys(false);
         if (itemNames.contains(item)) {

@@ -4,7 +4,9 @@ dev\wonkypigs\minememer\MineMemer.class
 dev\wonkypigs\minememer\helpers\EconomyUtils.class
 dev\wonkypigs\minememer\helpers\GeneralUtils.class
 dev\wonkypigs\minememer\listeners\menuListeners\InventoryMenuListener.class
+dev\wonkypigs\minememer\helpers\commandHelpers\SearchHelper.class
 dev\wonkypigs\minememer\listeners\menuListeners\BankMenuListener.class
+dev\wonkypigs\minememer\helpers\commandHelpers\FishingHelper.class
 dev\wonkypigs\minememer\commands\playerCommands\economy\makingMoney\FishCommand.class
 dev\wonkypigs\minememer\commands\adminCommands\GiveItemCommand.class
 dev\wonkypigs\minememer\commands\generalUtils\ReloadCommand.class

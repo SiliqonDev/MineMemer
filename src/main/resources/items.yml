@@ -42,66 +42,9 @@
 #####
 #####
 
-# If you STILL somehow want to edit this file, please read the below content very carefully.
 
-###### READ THE ESSAY ######
-##### READ THE WARNING #####
-###### READ THE ESSAY ######
-##### READ THE WARNING #####
-###### READ THE ESSAY ######
-##### READ THE WARNING #####
-###### READ THE ESSAY ######
-##### READ THE WARNING #####
-###### READ THE ESSAY ######
-##### READ THE WARNING #####
-###### READ THE ESSAY ######
-##### READ THE WARNING #####
-###### READ THE ESSAY ######
-##### READ THE WARNING #####
-###### READ THE ESSAY ######
-##### READ THE WARNING #####
-###### READ THE ESSAY ######
-##### READ THE WARNING #####
-###### READ THE ESSAY ######
-##### READ THE WARNING #####
-###### READ THE ESSAY ######
-##### READ THE WARNING #####
-###### READ THE ESSAY ######
-##### READ THE WARNING #####
-###### READ THE ESSAY ######
-##### READ THE WARNING #####
-###### READ THE ESSAY ######
-##### READ THE WARNING #####
-###### READ THE ESSAY ######
-##### READ THE WARNING #####
-###### READ THE ESSAY ######
-##### READ THE WARNING #####
-###### READ THE ESSAY ######
-##### READ THE WARNING #####
-###### READ THE ESSAY ######
-##### READ THE WARNING #####
-###### READ THE ESSAY ######
-##### READ THE WARNING #####
-###### READ THE ESSAY ######
-##### READ THE WARNING #####
-###### READ THE ESSAY ######
-##### READ THE WARNING #####
-###### READ THE ESSAY ######
-##### READ THE WARNING #####
-###### READ THE ESSAY ######
-##### READ THE WARNING #####
-###### READ THE ESSAY ######
-##### READ THE WARNING #####
-###### READ THE ESSAY ######
-##### READ THE WARNING #####
-###### READ THE ESSAY ######
-##### READ THE WARNING #####
-###### READ THE ESSAY ######
-##### READ THE WARNING #####
-
-### If for SOME REASON, you **STILL** want to edit the contents of this file, god help you
-### The file contents start below this line
-
+# Try to make the chances of all fish add up to 100
+# The plugin will handle automatic deletion of items which players have but have been removed from this file
 items:
   fishing_rod:
     menu_name: "&bFishing Rod"
@@ -110,15 +53,33 @@ items:
       - "&7Its a rod used for fishing"
       - "&7Honestly, what did you expect?"
   laptop:
-    menu_name: "&dLaptop"
+    menu_name: "&dA Laptop"
     item_material: "COMMAND_BLOCK"
     item_lore:
-      - "&7Its a laptop which can do laptop things"
-      - "&7May or may not be able to produce memes"
-  fish:
-    menu_name: "&bA fish"
+      - "&7A laptop which can do laptop things"
+      - "&7Might be able to produce memes"
+  small_cod:
+    obtain_chance: 50
+    menu_name: "&8Small cod"
     item_material: "TROPICAL_FISH_BUCKET"
     item_lore:
-      - "&7May or may not be dead"
-      - "&7May or may not be edible"
+      - "&7A simple, small cod"
       - "&7May or may not be poisonous"
+    sellable: True
+    sell_price: 200
+  big_cod:
+    obtain_chance: 50
+    menu_name: "&7Big cod"
+    item_material: "TROPICAL_FISH_BUCKET"
+    item_lore:
+      - "&7A pretty big fish"
+      - "&7May or may not be poisonous"
+    sellable: True
+    sell_price: 500
+
+# this is a list of all the fishes (from `items`)
+# must put new fish in here or remove old fish from this
+# or else bad
+fish_list:
+  - "small_cod"
+  - "big_cod"
