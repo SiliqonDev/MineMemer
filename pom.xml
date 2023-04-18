@@ -6,7 +6,7 @@
 
     <groupId>dev.wonkypigs</groupId>
     <artifactId>MineMemer</artifactId>
-    <version>beta -0.6.9</version>
+    <version>beta -0.6</version>
     <packaging>jar</packaging>
 
     <name>MineMemer</name>
@@ -34,7 +34,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
+                <version>3.4.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -54,7 +54,20 @@
                             <pattern>co.aikar.locales</pattern>
                             <shadedPattern>acf-bukkit.locales</shadedPattern>
                         </relocation>
+                        <relocation>
+                            <pattern>net.wesjd.anvilgui</pattern>
+                            <shadedPattern>dev.wonkypigs.anvilgui</shadedPattern>
+                        </relocation>
                     </relocations>
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludeDefaults>false</excludeDefaults>
+                            <includes>
+                                <include>dev.wonkypigs.anvilgui</include>
+                            </includes>
+                        </filter>
+                    </filters>
                 </configuration>
             </plugin>
         </plugins>
@@ -79,6 +92,10 @@
             <id>aikar</id>
             <url>https://repo.aikar.co/content/groups/aikar/</url>
         </repository>
+        <repository>
+            <id>codemc-snapshots</id>
+            <url>https://repo.codemc.io/repository/maven-snapshots/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -92,6 +109,11 @@
             <groupId>co.aikar</groupId>
             <artifactId>acf-bukkit</artifactId>
             <version>0.5.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>net.wesjd</groupId>
+            <artifactId>anvilgui</artifactId>
+            <version>1.6.3-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

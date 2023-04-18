@@ -7,29 +7,27 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class MenuHelpers {
 
-    public static void setMenuBackground(Inventory inv, Material material, int start, int stop) {
+    public static void setMenuBackground(Inventory inv, Material material, int start, int stop, String displayName) {
         for (int i = start; i < stop; i++) {
             ItemStack item = new ItemStack(material);
             ItemMeta meta = item.getItemMeta();
-            meta.setDisplayName(" ");
+            meta.setDisplayName(displayName);
             item.setItemMeta(meta);
             inv.setItem(i, item);
         }
     }
-    public static ItemStack generatePlayerHead(OfflinePlayer player, String displayName, ArrayList<String> lore) {
+    public static ItemStack generatePlayerHead(OfflinePlayer player, String displayName) {
         ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
         skullMeta.setOwningPlayer(player);
 
         // display name
         skullMeta.setDisplayName(displayName);
-
-        // lore
-        skullMeta.setLore(lore);
 
         // done
         skull.setItemMeta(skullMeta);

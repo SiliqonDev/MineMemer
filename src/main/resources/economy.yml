@@ -1,5 +1,4 @@
-# ALL CHANCES ARE N % OUT OF 100
-# DO NOT PUT CHANCES (PERCENTAGES) IN DECIMALS
+# DO NOT PUT CHANCES IN DECIMALS
 # 10 / 33 / 57 --> IS OK
 # 10.3 / 33.3 / 57.85 --> IS NOT OK
 ################################################
@@ -7,15 +6,15 @@
 currency-name: "boops"
 starting-bank-limit: 10000 # Don't put this in negative (common sense)
 
-beg-give-range: [150, 200] # Reward range for begging
+beg-give-range: [200, 250] # Reward range for begging
 beg-giver-names:
   - "placeholderLover1000"
-beg-giver-messages: # Allowed to use {currency} if you want to
+beg-giver-messages:
   - "*hands over some spare {currency}*"
   - "Here, have some {currency}"
 beg-failure-chance: 15
 
-search-doing-range: [100, 200] # Reward range for searching (default values = [100, 200] = semi-realistic depending on IRL currency)
+search-doing-range: [150, 200] # Reward range for searching (default values = [100, 200] = semi-realistic depending on IRL currency)
 search-doing-places: # Must have at least 3 in list or else goofy stuff will happen
   - "Nowhere"
   - "Somewhere"
@@ -23,6 +22,15 @@ search-doing-places: # Must have at least 3 in list or else goofy stuff will hap
   - "I dont even know anymore"
 search-failure-chance: 33
 
-fish-amount-range: [3,7] # Range of amount of fish options which will appear when fishing
-fishing-failure-chance: 25
+fish-amount-range: [3, 7] # Range of amount of fish options which will appear when fishing
+fishing-failure-chance: 20
+treasure-failure-chance: 75
 fishing-rod-break-chance: 5 # The chances of your rod breaking after completing the fishing process (success or not)
+
+postmeme-reward-range: [300, 500]
+postmeme-options:
+  - "Copypasta"
+  - "Something good"
+  - "Dank"
+postmeme-failure-chance: 33
+laptop-break-chance: 5

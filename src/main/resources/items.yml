@@ -5,81 +5,168 @@
 ##############################################################
 ##############################################################
 
-# Still want to edit this file? Well, read this essay by ChatGPT on why you should not
-# edit files which you have been told to not edit
+#################
+#  INSTRUCTIONS #
+#################
 
-#####
-#####
-#####
+# Not necessary to make chances add up to 100, but please do not use chances in decimal like 0.1 or 9.7 or 7.5 etc.
+# The plugin will handle automatic deletion of items which players have but do not exist in this file anymore
 
-# Editing a file that one has been specifically instructed not to touch can lead to a plethora of negative consequences.
-# Whether it's a sensitive document or a system file, tampering with it can result in irreparable damage, lost data, security breaches, and ultimately, a loss of trust.
-
-# One of the most significant risks of editing a file you have been told not to is data loss.
-# It is common for organizations to maintain backup systems, but it is crucial to have a proper system in place.
-# If a file is tampered with or deleted, it may cause irreversible damage to the data.
-# Furthermore, when unauthorized modifications are made to a file, it can cause inconsistencies, making it difficult to identify the issue and correct it.
-
-# In addition to data loss, unauthorized changes can also lead to security breaches.
-# Sensitive information such as passwords, financial information, and personally identifiable information can all be at risk when a file is modified without authorization.
-# This can lead to financial losses, legal issues, and even identity theft.
-
-# Moreover, unauthorized file changes can have significant impacts on the system's stability.
-# A system file contains crucial information for the smooth operation of a system, and even a small change can cause the system to malfunction.
-# For example, if a critical operating system file is changed, it can cause the entire system to crash, resulting in significant downtime for a business or organization.
-
-# Finally, unauthorized changes to files can lead to a loss of trust. If a file is off-limits, it is typically for a reason.
-# By ignoring instructions, you are demonstrating a lack of respect for authority, and this can result in a loss of trust between you and your superiors.
-# This can lead to further repercussions such as loss of privileges or even termination of employment.
-
-# In conclusion, editing a file that you have been instructed not to touch can have significant and lasting consequences.
-# The potential loss of data, security breaches, system instability, and loss of trust can all have negative impacts on both the individual and the organization as a whole.
-# It is essential to follow instructions and respect the authority of those who have deemed the file off-limits.
-# If you require access to the file for any reason, it is best to approach the appropriate authority and request permission before making any changes.
-# By doing so, you can avoid the negative repercussions of unauthorized file modifications while demonstrating professionalism and respect for authority.
-
-#####
-#####
-#####
+# Available properties for items are as follows - (can be used on any item)
+# example_item:
+#   rarity: The rarity of the item, prefixed to the item name
+#   menu_name: The name of the item in menus and chat
+#   item_material: The material of the item used to display it in menus
+#   item_lore: The lore of the item used to display it in menus
+#   buyable: Whether or not the item can be bought from the shop
+#   buy_price: The price of the item when bought from the shop
+#   sellable: Whether or not the item can be sold to the shop
+#   sell_price: The price of the item when sold to the shop
+#   is_treasure: Whether or not the item is a treasure (can be obtained through fishing in water)
+#   treasure_obtain_chance: The chance of obtaining the item when fishing in water
+#   item_glow: Whether or not the item should glow in menus
+#   is_fish: Whether or not the item is a fish (can be obtained through fishing in water)
+#   fish_obtain_chance: The chance of obtaining the item when fishing in water
 
 
-# Try to make the chances of all fish add up to 100
-# The plugin will handle automatic deletion of items which players have but have been removed from this file
+# There are some items setup by default, do with them whatever you want
 items:
+  demo_item:
+    rarity: "&6[LEGENDARY]&r"
+    menu_name: "&5Demo Item"
+    is_fish: false
+    is_treasure: false
+    fish_obtain_chance: 0
+    treasure_obtain_chance: 0
+    item_material: "DIAMOND"
+    item_glow: true
+    item_lore:
+      - "&7This is a demo item"
+    buyable: false
+    buy_price: 1000
+    sellable: false
+    sell_price: 1000
+
+  ######################
+  ##### RARE ITEMS #####
+  ######################
+
+  pile_of_gold:
+    rarity: "&6[LEGENDARY]&r "
+    treasure_obtain_chance: 20
+    is_treasure: true
+    menu_name: "&6Pile of Gold"
+    item_material: "GOLD_BLOCK"
+    item_glow: true
+    item_lore:
+      - "&7MOOOOMMMM!!!"
+      - "&7I'M RICHHHH!!"
+    sellable: true
+    sell_price: 10000
+  rare_painting:
+    rarity: "&d[EPIC]&r "
+    treasure_obtain_chance: 40
+    is_treasure: true
+    menu_name: "&dRare Painting"
+    item_material: "ITEM_FRAME"
+    item_lore:
+      - "&7A long lost ancient painting"
+      - "&7Worth quite a bit"
+    sellable: true
+    sell_price: 7000
+  ancient_fossil:
+    rarity: "&c[RARE]&r "
+    treasure_obtain_chance: 25
+    is_treasure: true
+    menu_name: "&8Ancient Fossil"
+    item_material: "BONE_BLOCK"
+    item_lore:
+      - "The remains of an ancient being"
+      - "Millions of years old"
+    sellable: true
+    sell_price: 4500
+  trash:
+    rarity: "&8[TRASH]&r "
+    treasure_obtain_chance: 15
+    is_treasure: true
+    menu_name: "&8Trash"
+    item_material: "OBSIDIAN"
+    item_lore:
+      - "&7Literally just a pile of garbage"
+      - "&7The shop might buy it, or not"
+    sellable: true
+    sell_price: 100
+
+  ######################
+  ##### TOOL ITEMS #####
+  ######################
+
   fishing_rod:
+    rarity: "&7[COMMON]&r "
     menu_name: "&bFishing Rod"
     item_material: "FISHING_ROD"
     item_lore:
       - "&7Its a rod used for fishing"
       - "&7Honestly, what did you expect?"
+    buyable: true
+    buy_price: 1000
   laptop:
+    rarity: "&7[COMMON]&r "
     menu_name: "&dA Laptop"
     item_material: "COMMAND_BLOCK"
     item_lore:
       - "&7A laptop which can do laptop things"
       - "&7Might be able to produce memes"
-  small_cod:
-    obtain_chance: 50
-    menu_name: "&8Small cod"
-    item_material: "TROPICAL_FISH_BUCKET"
+    buyable: true
+    buy_price: 1500
+
+  ######################
+  ##### FISH ITEMS #####
+  ######################
+
+  cod:
+    rarity: "&7[COMMON]&r "
+    fish_obtain_chance: 49
+    is_fish: true
+    menu_name: "&fSmall Cod"
+    item_material: "COD"
     item_lore:
       - "&7A simple, small cod"
       - "&7May or may not be poisonous"
-    sellable: True
     sell_price: 200
-  big_cod:
-    obtain_chance: 50
-    menu_name: "&7Big cod"
-    item_material: "TROPICAL_FISH_BUCKET"
+    sellable: true
+  trout:
+    rarity: "&a[UNCOMMON]&r "
+    fish_obtain_chance: 40
+    is_fish: true
+    menu_name: "&fTrout fish"
+    item_material: "TROPICAL_FISH"
     item_lore:
-      - "&7A pretty big fish"
-      - "&7May or may not be poisonous"
-    sellable: True
-    sell_price: 500
-
-# this is a list of all the fishes (from `items`)
-# must put new fish in here or remove old fish from this
-# or else bad
-fish_list:
-  - "small_cod"
-  - "big_cod"
+      - "&7A trout fish, medium sized"
+      - "&7Worth a decent penny"
+    sell_price: 350
+    sellable: true
+  rainbow_trout:
+    rarity: "&d[EPIC]&r "
+    fish_obtain_chance: 10
+    is_fish: true
+    menu_name: "&cR&6A&eI&aN&bB&5O&dW&r &bTrout"
+    item_material: "TROPICAL_FISH"
+    item_glow: true
+    item_lore:
+      - "&7A trout fish but in rainbow"
+      - "&7Collections are crazy for this"
+    sell_price: 1000
+    sellable: true
+  kraken_fish:
+    rarity: "&6[LEGENDARY]&r "
+    fish_obtain_chance: 1
+    is_fish: true
+    menu_name: "&6Kraken"
+    item_material: "TROPICAL_FISH_BUCKET"
+    item_glow: true
+    item_lore:
+      - "&7A literal kraken"
+      - "&7How did you even catch it?"
+    sell_price: 10000
+    sellable: true

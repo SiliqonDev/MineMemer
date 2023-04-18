@@ -74,40 +74,16 @@ public class InventoryCommand extends BaseCommand {
 
     public void inventoryDisplaySetup(OfflinePlayer target, Inventory inv, Map<String, Integer> itemList) {
         // menu background
-        setMenuBackground(inv, plugin.menubg2, 0, 9);
-        setMenuBackground(inv, plugin.menubg2, 36, 45);
-        /*
-        for (int i = 0; i < 9; i++) {
-            ItemStack item = new ItemStack(plugin.menubg2);
-            ItemMeta meta = item.getItemMeta();
-            meta.setDisplayName(" ");
-            item.setItemMeta(meta);
-            inv.setItem(i, item);
-        }
-        for (int i = 36; i < 45; i++) {
-            ItemStack item = new ItemStack(plugin.menubg2);
-            ItemMeta meta = item.getItemMeta();
-            meta.setDisplayName(" ");
-            item.setItemMeta(meta);
-            inv.setItem(i, item);
-        }
-         */
+        setMenuBackground(inv, plugin.menubg2, 0, 9, " ");
+        setMenuBackground(inv, plugin.menubg, 9, 36, " ");
+        setMenuBackground(inv, plugin.menubg2, 36, 45, " ");
 
         // player head item
         String skullDisplayName = plugin.lang.getString("inventory-player-skull-name")
                 .replace("&", "§")
                 .replace("{name}", target.getName());
 
-        List<String> skullLoreList = plugin.items.getStringList("inventory-player-skull-lore");
-        ArrayList<String> skullLore = new ArrayList<>();
-        for (String line: skullLoreList) {
-            skullLore.add(line
-                    .replace("&", "§")
-                    .replace("{amount}", String.valueOf(itemList.size()))
-            );
-        }
-
-        ItemStack skullItem = generatePlayerHead(target, skullDisplayName, skullLore);
+        ItemStack skullItem = generatePlayerHead(target, skullDisplayName);
         inv.setItem(4, skullItem);
 
         // set it up

@@ -86,43 +86,15 @@ public class BalanceCommand extends BaseCommand {
         }
 
         // menu background
-        setMenuBackground(inv, plugin.menubg2, 0, 9);
-        setMenuBackground(inv, plugin.menubg, 9, 36);
-        /*
-        for (int i = 0; i < 9; i++) {
-            ItemStack item = new ItemStack(plugin.menubg2);
-            ItemMeta meta = item.getItemMeta();
-            meta.setDisplayName(" ");
-            item.setItemMeta(meta);
-            inv.setItem(i, item);
-        }
-        for (int i = 9; i < 36; i++) {
-            ItemStack item = new ItemStack(plugin.menubg);
-            ItemMeta meta = item.getItemMeta();
-            meta.setDisplayName(" ");
-            item.setItemMeta(meta);
-            inv.setItem(i, item);
-        }
-         */
+        setMenuBackground(inv, plugin.menubg2, 0, 9, " ");
+        setMenuBackground(inv, plugin.menubg, 9, 36, " ");
 
         // Player head item
         String skullDisplayName = plugin.lang.getString("bank-player-skull-name")
                 .replace("&", "§")
                 .replace("{name}", target.getName());
 
-        List<String> skullLoreList = plugin.items.getStringList("bank-player-skull-lore");
-        ArrayList<String> skullLore = new ArrayList<>();
-        for (String line: skullLoreList) {
-            plugin.getLogger().info(line);
-            skullLore.add(line
-                    .replace("&", "§")
-                    .replace("{amount}", String.valueOf(purse+bankStored))
-                    .replace("{currency}", plugin.currencyName)
-            );
-        }
-
-        plugin.getLogger().info(skullDisplayName);
-        ItemStack skullItem = generatePlayerHead(target, skullDisplayName, skullLore);
+        ItemStack skullItem = generatePlayerHead(target, skullDisplayName);
         inv.setItem(4, skullItem);
 
         // Bank item

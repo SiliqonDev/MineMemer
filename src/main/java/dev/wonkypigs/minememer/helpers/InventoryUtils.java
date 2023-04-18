@@ -3,6 +3,8 @@ package dev.wonkypigs.minememer.helpers;
 import dev.wonkypigs.minememer.MineMemer;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -92,21 +94,26 @@ public class InventoryUtils {
         }
         return ans;
     }
-    public static ItemStack setupInventoryItem(String itemName, int amount) {
+    public static ItemStack setupInventoryItem(String itemName, int menuAmount) {
         String ymlPath = "items." + itemName;
+        int amount = menuAmount;
 
         // setup item stack
-        if (amount > 64) {
-            amount = 64;
+        if (menuAmount > 64) {
+            menuAmount = 64;
         }
-        ItemStack item = new ItemStack(Material.valueOf(plugin.items.getString(ymlPath + ".item_material")), amount);
+        ItemStack item = new ItemStack(Material.valueOf(plugin.items.getString(ymlPath + ".item_material")), menuAmount);
         ItemMeta itemMeta = item.getItemMeta();
         // grab lore list
         List<String> loreList = plugin.items.getStringList(ymlPath + ".item_lore");
 
         // display name
-        itemMeta.setDisplayName(plugin.items.getString(ymlPath + ".menu_name")
-                .replace("&", "§")
+        itemMeta.setDisplayName(
+                plugin.items.getString(ymlPath + ".rarity")
+                        .replace("&", "§")
+                + plugin.items.getString(ymlPath + ".menu_name")
+                        .replace("&", "§")
+                + " &7x".replace("&", "§") + amount
         );
         // lore
         ArrayList<String> lore = new ArrayList<>();
@@ -114,6 +121,12 @@ public class InventoryUtils {
             lore.add(line.replace("&", "§"));
         }
         itemMeta.setLore(lore);
+        if (plugin.items.getBoolean(ymlPath + ".item_glow")) {
+            item.addUnsafeEnchantment(Enchantment.CHANNELING, 1);
+        }
+
+        itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         item.setItemMeta(itemMeta);
         return item;
     }

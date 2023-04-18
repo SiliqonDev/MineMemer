@@ -1,17 +1,11 @@
 package dev.wonkypigs.minememer.helpers;
 
 import dev.wonkypigs.minememer.MineMemer;
-import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.SkullMeta;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class GeneralUtils {
     private static final MineMemer plugin = MineMemer.getInstance();

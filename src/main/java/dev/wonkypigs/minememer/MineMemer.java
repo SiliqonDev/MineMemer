@@ -5,6 +5,7 @@ import dev.wonkypigs.minememer.commands.adminCommands.*;
 import dev.wonkypigs.minememer.commands.generalUtils.InventoryCommand;
 import dev.wonkypigs.minememer.commands.playerCommands.economy.banking.*;
 import dev.wonkypigs.minememer.commands.playerCommands.economy.makingMoney.*;
+import dev.wonkypigs.minememer.commands.playerCommands.economy.store.StoreCommand;
 import dev.wonkypigs.minememer.listeners.menuListeners.*;
 import dev.wonkypigs.minememer.listeners.PlayerJoinListener;
 import org.bukkit.Bukkit;
@@ -32,6 +33,12 @@ public final class MineMemer extends JavaPlugin {
     public Material menubg, menubg2;
     public String currencyName;
     private BukkitCommandManager commandManager;
+    public String buyButtonKeyName = "buy_button",
+            sellButtonKeyName = "sell_button",
+            backButtonKeyName = "back_button",
+            validItemKeyName = "valid_item",
+            fishItemKeyName = "fish",
+            searchMenuItemKeyName = "search_option";
 
     @Override
     public void onEnable() {
@@ -73,6 +80,7 @@ public final class MineMemer extends JavaPlugin {
         commandManager.registerCommand(new BegCommand());
         commandManager.registerCommand(new SearchCommand());
         commandManager.registerCommand(new FishCommand());
+        commandManager.registerCommand(new PostmemeCommand());
         // admin
         commandManager.registerCommand(new GiveEcoCommand());
         commandManager.registerCommand(new TakeEcoCommand());
@@ -80,7 +88,7 @@ public final class MineMemer extends JavaPlugin {
         commandManager.registerCommand(new TakeItemCommand());
         // misc
         commandManager.registerCommand(new InventoryCommand());
-        // commandManager.registerCommand(new StoreCommand()); <--- not ready yet
+        commandManager.registerCommand(new StoreCommand());
     }
     public void registerCommandCompletion() {
         // command completions
@@ -103,7 +111,8 @@ public final class MineMemer extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new BankMenuListener(), this);
         getServer().getPluginManager().registerEvents(new InventoryMenuListener(), this);
         getServer().getPluginManager().registerEvents(new FishingMenuListener(), this);
-        //getServer().getPluginManager().registerEvents(new StoreCommandListener(), this); <--- not ready yet
+        getServer().getPluginManager().registerEvents(new StoreMenuListener(), this);
+        getServer().getPluginManager().registerEvents(new PostmemeMenuListener(), this);
     }
 
     public void getConfigValues() {
@@ -135,7 +144,6 @@ public final class MineMemer extends JavaPlugin {
             itemsFile.getParentFile().mkdirs();
             saveResource("items.yml", false);
         }
-
         items = YamlConfiguration.loadConfiguration(itemsFile);
     }
 

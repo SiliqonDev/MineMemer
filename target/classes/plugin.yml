@@ -1,8 +1,0 @@
-name: MineMemer
-version: 'beta -0.6.9'
-main: dev.wonkypigs.minememer.MineMemer
-api-version: 1.13
-prefix: MineMemer
-authors: [ WonkyPigs ]
-description: The base idea of this plugin has definitely not been stolen from a very popular discord bot in particular.
-website: wonkypigs.com

@@ -12,6 +12,9 @@ public class BankMenuListener implements Listener {
     public void onInventoryClick(InventoryClickEvent e) {
         InventoryHolder holder = e.getInventory().getHolder();
         if (holder instanceof GUIHolders && (((GUIHolders) holder).getType().equalsIgnoreCase("bank"))) {
+            if (e.getCurrentItem() == null) {
+                return;
+            }
             e.setCancelled(true);
         }
     }

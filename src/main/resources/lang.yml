@@ -10,8 +10,10 @@ given-item: "&aYou gave {amount} of {item} to {player}"
 taken-item: "&cYou took away {amount} of {item} from {player}"
 player-does-not-have-item: "&c{player} does not have {amount} of that item!"
 invalid-item: "&cThat item does not exist!"
-# -- player
+# -- errors and stuff
 player-not-found: "&cCould not find the requested player!"
+invalid-amount: "&cInvalid amount!"
+something-went-wrong: "&cSomething went wrong! Try again later"
 
 # BANKING
 # --- menu title
@@ -21,8 +23,6 @@ other-bank-menu-title: "&e&l{name}'s bank:"
 bank-purse-item-name: "&6Purse: &a{purseMoney} {currency}"
 bank-bank-item-name: "&6Bank: &a{bankMoney}&8/&7{bankLimit} {currency}"
 bank-player-skull-name: "&b{name}"
-bank-player-skull-lore:
-  - "&6Total Money: &a{amount} {currency}"
 # --- deposit/withdraw messages
 not-enough-money-purse: "&cYou do not have enough {currency}! &8(&7{amount}/{required}&8)"
 not-enough-money-bank: "&cYour bank doesn't have that much {currency}! &8(&7{amount}/{required}&8)"
@@ -36,14 +36,29 @@ self-inventory-menu-title: "&b&lYour inventory:"
 other-inventory-menu-title: "&b&l{name}'s inventory:"
 # --- menu items
 inventory-player-skull-name: "&b{name}"
-inventory-player-skull-lore:
-  - "&6Total Items: &a{amount}"
 
 # ITEM SHOP
+# -- menu title
 shop-menu-title: "&2&lItem shop:"
+# -- menu items
 shop-sell-item-button: "&cSell something"
 shop-buy-item-button: "&aBuy something"
-shop-balance-display: "&bYour purse&f:&a {amount} {currency}"
+back-to-shop-button: "&cExit To Shop"
+# -- messages
+bought-item: "&aYou bought {amount} of {item}&r&a for {price} {currency}"
+sold-item: "&aYou sold {amount} of {item}&r&a for {price} {currency}"
+not-enough-item: "&cYou do not have enough of that item!"
+# -- lores
+item-buy-lore: "&6Price&f:&a {amount} {currency}"
+item-sell-lore:
+  - "&6Sell Price&f:&a {price} {currency}"
+  - "&7You have: x{amount}"
+store-item-extra-lore:
+  - "&fLeft Click&7 to buy one"
+  - "&fRight Click&7 to select amount"
+# -- something went wrong
+shop-buy-error: "&cThere was an issue buying that item!"
+shop-sell-error: "&cThere was an issue selling that item!"
 
 # MAKING MONEY
 # --- beg
@@ -54,13 +69,19 @@ search-menu-title: "&3Searching for big loot..."
 search-done-message: "&7Searching {place}...\n&aYou just got {amount} {currency}!"
 search-failed-message: "&7Searching {place}...\n&cOOF! you didn't get any {currency} from that!"
 # --- fishing
-no-fishing-rod: "&cYou need a fishing rod to do this! Visit the &a/mm store&c to buy one"
+no-fishing-rod: "&cYou need a fishing rod to do this! Visit the &a/mm shop&c to get one"
 fishing-menu-title: "&3Fishing for fish..."
 fishing-rod-menu-item-name: "&bFishing..."
-fishing-rod-menu-item-lore: []
-fish-display-name: "&bA fish"
-fish-display-lore:
-  - "&7A fish which is ready to be fished up"
+fishing-menu-water-name: "&bwotar"
+fish-display-name: "&bFish *blub*"
 fishing-done-message: "&a&lCongratulations!&r &aYou found a &b{fish} &awhilst fishing!"
 fishing-failed-message: "&c&lFAILURE!&r &cYou failed to reel in the fish!"
 fishing-rod-broke: "&c&lYIKES!&r &cYour fishing rod broke!"
+fishing-water-failure: "&c&lDUMB&r&c Why did you try to fish up water?"
+fishing-water-success: "&a&lCONGRATULATIONS!&r&a You just got fished up a {item} &afrom under the ocean!"
+# --- postmeme
+no-laptop: "&cYou need a laptop to do this! Visit the &a/mm shop&c to get one"
+postmeme-menu-title: "&3Making a meme..."
+postmeme-done-message: "&7Posting {meme}...\n&aYou just got {amount} {currency}!"
+postmeme-failed-message: "&7Posting {meme}...\n&cOOF! you didn't get any {currency} from that!"
+laptop-broke: "&c&lYIKES!&r &cYour laptop glitched and vanished!"

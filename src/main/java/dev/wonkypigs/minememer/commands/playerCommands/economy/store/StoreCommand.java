@@ -6,14 +6,13 @@ import co.aikar.commands.annotation.Subcommand;
 import dev.wonkypigs.minememer.GUIHolders;
 import dev.wonkypigs.minememer.MineMemer;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.bukkit.persistence.PersistentDataType;
 
 import static dev.wonkypigs.minememer.helpers.EconomyUtils.*;
 import static dev.wonkypigs.minememer.helpers.MenuHelpers.*;
@@ -24,14 +23,19 @@ public class StoreCommand extends BaseCommand {
 
     @Subcommand("shop|store")
     public void openStore(Player player) {
-        openStoreMenu(player);
-    }
-
-    public void openStoreMenu(Player player) {
-        Inventory inv = plugin.getServer().createInventory(new GUIHolders("store"), 45, plugin.lang.getString("shop-menu-title")
+        Inventory inv = plugin.getServer().createInventory(new GUIHolders("store"), 36, plugin.lang.getString("shop-menu-title")
                 .replace("&", "§")
         );
+        openStoreMenu(player, inv);
+    }
+
+    public static void openStoreMenu(Player player, Inventory inv) {
+        // reset holder
+        ((GUIHolders) inv.getHolder()).setType("store");
+
         // menu background
+        setMenuBackground(inv, plugin.menubg, 0, 27, " ");
+        setMenuBackground(inv, plugin.menubg2, 27, 36, " ");
 
         // buy button
         ItemStack buyButton = new ItemStack(Material.STONE_PICKAXE);
@@ -40,8 +44,10 @@ public class StoreCommand extends BaseCommand {
                 .replace("&", "§")
         );
         buyButtonMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        NamespacedKey buyButtonKey = new NamespacedKey(plugin, plugin.buyButtonKeyName);
+        buyButtonMeta.getPersistentDataContainer().set(buyButtonKey, PersistentDataType.STRING, "yes");
         buyButton.setItemMeta(buyButtonMeta);
-        inv.setItem(20, buyButton);
+        inv.setItem(11, buyButton);
 
         // sell button
         ItemStack sellButton = new ItemStack(Material.GOLD_INGOT);
@@ -49,19 +55,10 @@ public class StoreCommand extends BaseCommand {
         sellButtonMeta.setDisplayName(plugin.lang.getString("shop-sell-item-button")
                 .replace("&", "§")
         );
+        NamespacedKey sellButtonKey = new NamespacedKey(plugin, plugin.sellButtonKeyName);
+        sellButtonMeta.getPersistentDataContainer().set(sellButtonKey, PersistentDataType.STRING, "yes");
         sellButton.setItemMeta(sellButtonMeta);
-        inv.setItem(24, sellButton);
-
-        // balance display
-        ItemStack balanceDisplay = new ItemStack(Material.DIAMOND);
-        ItemMeta balanceDisplayMeta = balanceDisplay.getItemMeta();
-        balanceDisplayMeta.setDisplayName(plugin.lang.getString("shop-balance-display")
-                .replace("&", "§")
-                .replace("{amount}", String.valueOf(grabPlayerPurse(player)))
-                .replace("{currency}", plugin.currencyName)
-        );
-        balanceDisplay.setItemMeta(balanceDisplayMeta);
-        inv.setItem(40, balanceDisplay);
+        inv.setItem(15, sellButton);
 
         player.openInventory(inv);
     }

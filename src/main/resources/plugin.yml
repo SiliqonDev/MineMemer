@@ -1,7 +1,7 @@
 name: MineMemer
 version: '${project.version}'
 main: dev.wonkypigs.minememer.MineMemer
-api-version: 1.13
+api-version: 1.14
 prefix: MineMemer
 authors: [ WonkyPigs ]
 description: The base idea of this plugin has definitely not been stolen from a very popular discord bot in particular.

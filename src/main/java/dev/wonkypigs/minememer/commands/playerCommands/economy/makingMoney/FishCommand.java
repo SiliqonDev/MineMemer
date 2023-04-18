@@ -11,7 +11,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -26,23 +25,26 @@ public class FishCommand extends BaseCommand {
 
     @Subcommand("fishing|fish")
     public void fishForFish(Player player) {
-        fish(player);
-    }
-
-    public void fish(Player player) {
         if (getPlayerItemAmount(player, "fishing_rod") == 0) {
             player.sendMessage(plugin.lang.getString("no-fishing-rod")
                     .replace("&", "§")
             );
             return;
         }
+        fishMenu(player);
+    }
+
+    public void fishMenu(Player player) {
         Inventory inv = plugin.getServer().createInventory(new GUIHolders("fishing"), 45, plugin.lang.getString("fishing-menu-title")
                 .replace("&", "§")
         );
         // menu background
-        setMenuBackground(inv, plugin.menubg2, 0, 9);
-        setMenuBackground(inv, Material.BLUE_STAINED_GLASS_PANE, 9, 36);
-        setMenuBackground(inv, plugin.menubg2, 36, 45);
+        setMenuBackground(inv, plugin.menubg2, 0, 9, " ");
+        setMenuBackground(inv, Material.BLUE_STAINED_GLASS_PANE, 9, 36,
+                plugin.lang.getString("fishing-menu-water-name")
+                        .replace("&", "§")
+        );
+        setMenuBackground(inv, plugin.menubg2, 36, 45, " ");
 
         // top fishing rod item
         ItemStack rod = new ItemStack(Material.FISHING_ROD);
@@ -50,13 +52,8 @@ public class FishCommand extends BaseCommand {
         rodMeta.setDisplayName(plugin.lang.getString("fishing-rod-menu-item-name")
                 .replace("&", "§")
         );
-        List<String> loreList = plugin.items.getStringList("fishing-rod-menu-item-lore");
-        ArrayList<String> lore = new ArrayList<>();
-        for (String line: loreList) {
-            lore.add(line.replace("&", "§"));
-        }
-        rodMeta.setLore(lore);
         rod.setItemMeta(rodMeta);
+
         inv.setItem(4, rod);
         startFishingGame(player, inv, 9, 35);
     }
@@ -85,14 +82,8 @@ public class FishCommand extends BaseCommand {
         fishMeta.setDisplayName(plugin.lang.getString("fish-display-name")
                 .replace("&", "§")
         );
-        List<String> loreList = plugin.items.getStringList("fish-display-lore");
-        ArrayList<String> lore = new ArrayList<>();
-        for (String line: loreList) {
-            lore.add(line.replace("&", "§"));
-        }
-        fishMeta.setLore(lore);
-        fish.setItemMeta(fishMeta);
 
+        fish.setItemMeta(fishMeta);
         return fish;
     }
 }
