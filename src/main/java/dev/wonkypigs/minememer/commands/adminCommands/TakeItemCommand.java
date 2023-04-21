@@ -11,15 +11,15 @@ import java.util.Locale;
 import static dev.wonkypigs.minememer.helpers.GeneralUtils.*;
 import static dev.wonkypigs.minememer.helpers.InventoryUtils.*;
 
-@CommandPermission("mm.admin.takeitem")
 @CommandAlias("mm|minememer")
 public class TakeItemCommand extends BaseCommand {
     private static final MineMemer plugin = MineMemer.getInstance();
 
     @Syntax("<player> <item> [<amount>]")
     @CommandCompletion("@AllPlayers @AllItems")
+    @CommandPermission("mm.admin.takeitem")
     @Subcommand("takeitem")
-    public void giveItemToPlayer(Player player, @Values("@AllPlayers") OfflinePlayer target, @Values("@AllItems") String itemName, @Default("1") int amount) {
+    public void giveItemToPlayer(Player player, OfflinePlayer target, @Values("@AllItems") String itemName, @Default("1") int amount) {
         if (!isPlayerRegistered(target)) {
             player.sendMessage(plugin.lang.getString("player-not-found")
                     .replace("&", "§"));

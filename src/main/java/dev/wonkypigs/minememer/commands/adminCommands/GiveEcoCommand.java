@@ -9,15 +9,15 @@ import org.bukkit.entity.Player;
 import static dev.wonkypigs.minememer.helpers.EconomyUtils.*;
 import static dev.wonkypigs.minememer.helpers.GeneralUtils.*;
 
-@CommandPermission("mm.admin.giveeco")
 @CommandAlias("mm|minememer")
 public class GiveEcoCommand extends BaseCommand {
     private static final MineMemer plugin = MineMemer.getInstance();
 
     @Syntax("<player> <amount>")
     @CommandCompletion("@AllPlayers")
+    @CommandPermission("mm.admin.giveeco")
     @Subcommand("giveeco|ecogive")
-    public void giveEcoToPlayer(Player player, @Values("@AllPlayers") OfflinePlayer target, int amount) {
+    public void giveEcoToPlayer(Player player, OfflinePlayer target, int amount) {
         if (!isPlayerRegistered(target)) {
             player.sendMessage(plugin.lang.getString("player-not-found")
                     .replace("&", "§"));

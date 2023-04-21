@@ -14,7 +14,7 @@ import org.bukkit.persistence.PersistentDataType;
 import static dev.wonkypigs.minememer.commands.playerCommands.economy.store.BuyMenu.*;
 import static dev.wonkypigs.minememer.commands.playerCommands.economy.store.SellMenu.*;
 import static dev.wonkypigs.minememer.commands.playerCommands.economy.store.StoreCommand.openStoreMenu;
-import static dev.wonkypigs.minememer.helpers.commandHelpers.StoreHelper.*;
+import static dev.wonkypigs.minememer.commands.playerCommands.economy.store.StoreHelper.*;
 
 public class StoreMenuListener implements Listener {
     private static final MineMemer plugin = MineMemer.getInstance();

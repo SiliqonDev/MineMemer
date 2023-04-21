@@ -1,4 +1,4 @@
-package dev.wonkypigs.minememer.commands.playerCommands.economy.makingMoney;
+package dev.wonkypigs.minememer.commands.playerCommands.economy.makingMoney.fishing;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
@@ -26,8 +26,9 @@ public class FishCommand extends BaseCommand {
     @Subcommand("fishing|fish")
     public void fishForFish(Player player) {
         if (getPlayerItemAmount(player, "fishing_rod") == 0) {
-            player.sendMessage(plugin.lang.getString("no-fishing-rod")
+            player.sendMessage(plugin.lang.getString("need-item")
                     .replace("&", "§")
+                    .replace("{item}", plugin.items.getString("items.fishing_rod.menu_name").replace("&", "§"))
             );
             return;
         }

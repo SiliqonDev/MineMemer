@@ -9,9 +9,14 @@ starting-bank-limit: 10000 # Don't put this in negative (common sense)
 beg-give-range: [200, 250] # Reward range for begging
 beg-giver-names:
   - "placeholderLover1000"
+  - "John Doe"
+  - "Prof. Rizzics"
+  - "PewDiePie"
+  - "MrBeast"
 beg-giver-messages:
   - "*hands over some spare {currency}*"
   - "Here, have some {currency}"
+  - "I have some {currency} to spare"
 beg-failure-chance: 15
 
 search-doing-range: [150, 200] # Reward range for searching (default values = [100, 200] = semi-realistic depending on IRL currency)
@@ -27,6 +32,21 @@ fishing-failure-chance: 20
 treasure-failure-chance: 75
 fishing-rod-break-chance: 5 # The chances of your rod breaking after completing the fishing process (success or not)
 
+hunt-animal-amount-range: [3, 7] # Range of amount of animal options which will appear when hunting
+hunt-animal-names:
+  - "Cow"
+  - "Pig"
+  - "Chicken"
+  - "Sheep"
+# Animal skins must be head skins and preferably from http://textures.minecraft.net/texture/{texture id}
+hunt-animal-skins: # the order in which the skins are present must correspond to the order of the names
+  - "http://textures.minecraft.net/texture/d6551840955f524367580f11b35228938b6786397a8f2e8c8cc6b0eb01b5db3d"
+  - "http://textures.minecraft.net/texture/7fe9725c950472e469b9fccae32f61bcefebdb5ea9ce9c92d58171ffb7a336fe"
+  - "http://textures.minecraft.net/texture/ca3582ce4889333dad329e4e24372a03a5daa2c34280c56256af5283edb043f8"
+  - "http://textures.minecraft.net/texture/30f50394c6d7dbc03ea59fdf504020dc5d6548f9d3bc9dcac896bb5ca08587a"
+hunt-failure-chance: 20
+hunting-rifle-break-chance: 5 # The chances of your rifle breaking after completing the hunting process (success or not)
+
 postmeme-reward-range: [300, 500]
 postmeme-options:
   - "Copypasta"
@@ -34,3 +54,14 @@ postmeme-options:
   - "Dank"
 postmeme-failure-chance: 33
 laptop-break-chance: 5
+
+dig-give-range: [200, 250]
+dig-failure-chance: 20
+dig-treasure-chance: 10
+shovel-break-chance: 5
+
+mine-give-range: [200, 250]
+mine-failure-chance: 20
+pickaxe-break-chance: 5
+
+doge-spawn-chance: 90 # The chances of a wolf being a doge (out of 100)

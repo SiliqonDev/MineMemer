@@ -1,6 +1,8 @@
 # WARNING: You can remove the stuff between the {} (curly brackets) but it is not recommended to do so.
 
 # ADMIN
+confirm-reload: "&cYou must confirm the reload by typing &7/mm reload confirm&c!"
+reload-success: "&aSuccessfully reloaded the plugin!"
 # --- eco (currency)
 given-eco: "&aYou gave {amount} {currency} to {player}"
 taken-eco: "&cYou took {amount} {currency} from {player}"
@@ -16,6 +18,8 @@ invalid-amount: "&cInvalid amount!"
 something-went-wrong: "&cSomething went wrong! Try again later"
 
 # BANKING
+# --- sole balance message
+balance-message: "{name} Bank Info:\n&7- &6Purse: &a{purseMoney} {currency}\n&7- &6Bank: &a{bankMoney}&8/&7{bankLimit} {currency}"
 # --- menu title
 self-bank-menu-title: "&e&lYour bank:"
 other-bank-menu-title: "&e&l{name}'s bank:"
@@ -61,6 +65,9 @@ shop-buy-error: "&cThere was an issue buying that item!"
 shop-sell-error: "&cThere was an issue selling that item!"
 
 # MAKING MONEY
+# --- general
+need-item: "&cYou need a {item}&c to do this! Visit the &b/mm shop&c to get one"
+item-broke: "&c&lYIKES!&r &cYour {item}&c  broke!"
 # --- beg
 beg-done-message: "&c{giver}&7:&f {message}\n&aYou just got {amount} {currency}!"
 beg-failed-message: "&cOOF! No one gave you any {currency}"
@@ -68,20 +75,30 @@ beg-failed-message: "&cOOF! No one gave you any {currency}"
 search-menu-title: "&3Searching for big loot..."
 search-done-message: "&7Searching {place}...\n&aYou just got {amount} {currency}!"
 search-failed-message: "&7Searching {place}...\n&cOOF! you didn't get any {currency} from that!"
+# --- postmeme
+postmeme-menu-title: "&3Making a meme..."
+postmeme-done-message: "&7Posting {meme}...\n&aYou just got {amount} {currency}!"
+postmeme-failed-message: "&7Posting {meme}...\n&cOOF! you didn't get any {currency} from that!"
+# --- digging
+dig-done-message: "&aYou dug up {amount} {currency}!"
+dig-failed-message: "&cOOF! &7You didn't find any {currency}!"
+dig-treasure-success: "&a&lCONGRATULATIONS!&r&a You just dug up a {item} &afrom the ground!"
+# --- mining
+mine-done-message: "&aYou mined {amount} {currency}!"
+mine-failed-message: "&cOOF! &7You didn't find any {currency}!"
 # --- fishing
-no-fishing-rod: "&cYou need a fishing rod to do this! Visit the &a/mm shop&c to get one"
 fishing-menu-title: "&3Fishing for fish..."
 fishing-rod-menu-item-name: "&bFishing..."
 fishing-menu-water-name: "&bwotar"
 fish-display-name: "&bFish *blub*"
-fishing-done-message: "&a&lCongratulations!&r &aYou found a &b{fish} &awhilst fishing!"
+fishing-done-message: "&a&lCongratulations!&r &aYou found a {fish} &awhilst fishing!"
 fishing-failed-message: "&c&lFAILURE!&r &cYou failed to reel in the fish!"
-fishing-rod-broke: "&c&lYIKES!&r &cYour fishing rod broke!"
 fishing-water-failure: "&c&lDUMB&r&c Why did you try to fish up water?"
 fishing-water-success: "&a&lCONGRATULATIONS!&r&a You just got fished up a {item} &afrom under the ocean!"
-# --- postmeme
-no-laptop: "&cYou need a laptop to do this! Visit the &a/mm shop&c to get one"
-postmeme-menu-title: "&3Making a meme..."
-postmeme-done-message: "&7Posting {meme}...\n&aYou just got {amount} {currency}!"
-postmeme-failed-message: "&7Posting {meme}...\n&cOOF! you didn't get any {currency} from that!"
-laptop-broke: "&c&lYIKES!&r &cYour laptop glitched and vanished!"
+# --- hunting
+hunting-menu-title: "&3Hunting for animals..."
+hunting-rifle-menu-item-name: "&bHunting..."
+hunting-menu-grass-name: "&agras"
+hunting-animal-display-name: "&b{animal}"
+hunting-done-message: "&a&lCongratulations!&r &aYou hunted down a {animal}&a!\n&7You got {item}&7 {amount}"
+hunting-failed-message: "&c&lFAILURE!&r &cYou failed to hunt down the {animal}&c!"

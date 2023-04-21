@@ -8,7 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.InventoryHolder;
 
-import static dev.wonkypigs.minememer.helpers.commandHelpers.PostmemeHelper.*;
+import static dev.wonkypigs.minememer.commands.playerCommands.economy.makingMoney.postingMemes.PostMemeUtils.*;
 
 public class PostmemeMenuListener implements Listener {
 

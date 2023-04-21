@@ -4,10 +4,17 @@ import co.aikar.commands.BukkitCommandManager;
 import dev.wonkypigs.minememer.commands.adminCommands.*;
 import dev.wonkypigs.minememer.commands.generalUtils.InventoryCommand;
 import dev.wonkypigs.minememer.commands.playerCommands.economy.banking.*;
-import dev.wonkypigs.minememer.commands.playerCommands.economy.makingMoney.*;
+import dev.wonkypigs.minememer.commands.playerCommands.economy.makingMoney.begging.BegCommand;
+import dev.wonkypigs.minememer.commands.playerCommands.economy.makingMoney.digging.DigCommand;
+import dev.wonkypigs.minememer.commands.playerCommands.economy.makingMoney.fishing.FishCommand;
+import dev.wonkypigs.minememer.commands.playerCommands.economy.makingMoney.hunting.HuntCommand;
+import dev.wonkypigs.minememer.commands.playerCommands.economy.makingMoney.mining.MineCommand;
+import dev.wonkypigs.minememer.commands.playerCommands.economy.makingMoney.postingMemes.PostMemeCommand;
+import dev.wonkypigs.minememer.commands.playerCommands.economy.makingMoney.searching.SearchCommand;
 import dev.wonkypigs.minememer.commands.playerCommands.economy.store.StoreCommand;
 import dev.wonkypigs.minememer.listeners.menuListeners.*;
 import dev.wonkypigs.minememer.listeners.PlayerJoinListener;
+import dev.wonkypigs.minememer.mobs.DogeSpawnManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -16,12 +23,15 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static dev.wonkypigs.minememer.helpers.InventoryUtils.*;
-import static dev.wonkypigs.minememer.helpers.commandHelpers.FishingHelper.*;
+import static dev.wonkypigs.minememer.commands.playerCommands.economy.makingMoney.fishing.FishCommandUtils.*;
 
 public final class MineMemer extends JavaPlugin {
     private static MineMemer instance;{ instance = this; }
@@ -38,7 +48,10 @@ public final class MineMemer extends JavaPlugin {
             backButtonKeyName = "back_button",
             validItemKeyName = "valid_item",
             fishItemKeyName = "fish",
-            searchMenuItemKeyName = "search_option";
+            animalItemKeyName = "animal",
+            searchMenuItemKeyName = "search_option",
+            dogeKeyName = "doge";
+    public final UUID HEADS_RANDOM_UUID = UUID.fromString("37234774-51c5-4c3b-9039-435c9927d1b4");
 
     @Override
     public void onEnable() {
@@ -49,7 +62,7 @@ public final class MineMemer extends JavaPlugin {
         getConfigValues();
         createLangFile();
         createEconomyFile();
-        createItemsFile();
+        loadItemsResource();
         // database init
         getDatabaseInfo();
         mysqlSetup();
@@ -80,7 +93,10 @@ public final class MineMemer extends JavaPlugin {
         commandManager.registerCommand(new BegCommand());
         commandManager.registerCommand(new SearchCommand());
         commandManager.registerCommand(new FishCommand());
-        commandManager.registerCommand(new PostmemeCommand());
+        commandManager.registerCommand(new PostMemeCommand());
+        commandManager.registerCommand(new DigCommand());
+        commandManager.registerCommand(new MineCommand());
+        commandManager.registerCommand(new HuntCommand());
         // admin
         commandManager.registerCommand(new GiveEcoCommand());
         commandManager.registerCommand(new TakeEcoCommand());
@@ -113,6 +129,9 @@ public final class MineMemer extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new FishingMenuListener(), this);
         getServer().getPluginManager().registerEvents(new StoreMenuListener(), this);
         getServer().getPluginManager().registerEvents(new PostmemeMenuListener(), this);
+        getServer().getPluginManager().registerEvents(new HuntingMenuListener(), this);
+
+        getServer().getPluginManager().registerEvents(new DogeSpawnManager(), this); // <--- very experimental
     }
 
     public void getConfigValues() {
@@ -138,13 +157,10 @@ public final class MineMemer extends JavaPlugin {
         economy = YamlConfiguration.loadConfiguration(economyFile);
         currencyName = economy.getString("currency-name");
     }
-    private void createItemsFile() {
-        itemsFile = new File(getDataFolder(), "items.yml");
-        if (!itemsFile.exists()) {
-            itemsFile.getParentFile().mkdirs();
-            saveResource("items.yml", false);
-        }
-        items = YamlConfiguration.loadConfiguration(itemsFile);
+    private void loadItemsResource() {
+        InputStream is = getResource("items.yml");
+        InputStreamReader isr = new InputStreamReader(is);
+        items = YamlConfiguration.loadConfiguration(isr);
     }
 
     public void getDatabaseInfo() {
@@ -206,5 +222,12 @@ public final class MineMemer extends JavaPlugin {
     }
     public static MineMemer getInstance() {
         return instance;
+    }
+    public static void reloadPlugin() {
+        instance.saveDefaultConfig();
+        instance.getConfigValues();
+        instance.createLangFile();
+        instance.createEconomyFile();
+        instance.loadItemsResource();
     }
 }

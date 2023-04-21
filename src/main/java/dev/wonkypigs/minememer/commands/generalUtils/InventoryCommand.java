@@ -33,7 +33,7 @@ public class InventoryCommand extends BaseCommand {
     @Syntax("<player>")
     @CommandCompletion("@AllPlayers")
     @Subcommand("inv|inventory")
-    public void openInventoryOther(Player player, @Values("@AllPlayers") OfflinePlayer target) {
+    public void openInventoryOther(Player player, OfflinePlayer target) {
         openPlayerInventory(player, target);
     }
 

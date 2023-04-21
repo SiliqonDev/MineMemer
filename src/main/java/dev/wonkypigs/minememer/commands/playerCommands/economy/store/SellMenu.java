@@ -18,7 +18,7 @@ import java.util.List;
 
 import static dev.wonkypigs.minememer.helpers.InventoryUtils.getPlayerItemAmount;
 import static dev.wonkypigs.minememer.helpers.MenuHelpers.setMenuBackground;
-import static dev.wonkypigs.minememer.helpers.commandHelpers.StoreHelper.getSellableItemList;
+import static dev.wonkypigs.minememer.commands.playerCommands.economy.store.StoreHelper.getSellableItemList;
 
 public class SellMenu {
     private static final MineMemer plugin = MineMemer.getInstance();

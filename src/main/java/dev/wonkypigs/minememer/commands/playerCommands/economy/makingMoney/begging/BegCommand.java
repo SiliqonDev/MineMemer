@@ -1,6 +1,6 @@
-package dev.wonkypigs.minememer.commands.playerCommands.economy.makingMoney;
+package dev.wonkypigs.minememer.commands.playerCommands.economy.makingMoney.begging;
 
-import co.aikar.commands.BaseCommand;
+import      co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.Subcommand;
 import dev.wonkypigs.minememer.MineMemer;

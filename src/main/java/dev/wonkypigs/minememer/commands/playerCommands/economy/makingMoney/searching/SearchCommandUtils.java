@@ -1,4 +1,4 @@
-package dev.wonkypigs.minememer.helpers.commandHelpers;
+package dev.wonkypigs.minememer.commands.playerCommands.economy.makingMoney.searching;
 
 import dev.wonkypigs.minememer.MineMemer;
 import org.bukkit.entity.Player;
@@ -10,7 +10,7 @@ import java.util.Random;
 import static dev.wonkypigs.minememer.helpers.EconomyUtils.gettinThatBread;
 import static dev.wonkypigs.minememer.helpers.GeneralUtils.pickRandomNum;
 
-public class SearchHelper {
+public class SearchCommandUtils {
     private static final MineMemer plugin = MineMemer.getInstance();
 
     public static void doSearch(Player player, InventoryClickEvent e) {

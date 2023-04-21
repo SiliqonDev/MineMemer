@@ -30,6 +30,7 @@
 
 
 # There are some items setup by default, do with them whatever you want
+
 items:
   demo_item:
     rarity: "&6[LEGENDARY]&r"
@@ -109,7 +110,7 @@ items:
       - "&7Its a rod used for fishing"
       - "&7Honestly, what did you expect?"
     buyable: true
-    buy_price: 1000
+    buy_price: 2500
   laptop:
     rarity: "&7[COMMON]&r "
     menu_name: "&dA Laptop"
@@ -118,7 +119,59 @@ items:
       - "&7A laptop which can do laptop things"
       - "&7Might be able to produce memes"
     buyable: true
-    buy_price: 1500
+    buy_price: 3000
+  shovel:
+    rarity: "&7[COMMON]&r "
+    menu_name: "&fA Shovel"
+    item_material: "IRON_SHOVEL"
+    item_lore:
+      - "&7A shovel used for digging"
+      - "&7Can be used to dig up treasure"
+    buyable: true
+    buy_price: 5000
+  pickaxe:
+    rarity: "&7[COMMON]&r "
+    menu_name: "&fA Pickaxe"
+    item_material: "IRON_PICKAXE"
+    item_lore:
+      - "&7A pickaxe used for mining"
+      - "&7Can be used to mine ores"
+    buyable: true
+    buy_price: 5000
+  hunting_rifle:
+    rarity: "&7[COMMON]&r "
+    menu_name: "&fA Hunting Rifle"
+    item_material: "BOW"
+    item_lore:
+      - "&7A hunting rifle used for hunting"
+      - "&7"
+    buyable: true
+    buy_price: 5000
+
+  ########################
+  ##### USABLE ITEMS #####
+  ########################
+
+  bank_note:
+    rarity: "&a[UNCOMMON]&r "
+    menu_name: "&7A Bank Note"
+    item_material: "PAPER"
+    item_lore:
+      - "&7A bank note used for"
+      - "&7increasing your bank limit"
+    buyable: true
+    buy_price: 25000
+    aliases: ["banknote", "bknote", "bnote", "knote"]
+    limit_increase_amount: 15000
+  apple:
+    rarity: "&7[COMMON]&r "
+    menu_name: "&fAn Apple"
+    item_material: "APPLE"
+    item_lore:
+      - "&7An apple a day might give"
+      - "&7you a boost, who knows"
+    buyable: false
+    booster_time: 900 # in seconds
 
   ######################
   ##### FISH ITEMS #####
@@ -150,7 +203,7 @@ items:
     rarity: "&d[EPIC]&r "
     fish_obtain_chance: 10
     is_fish: true
-    menu_name: "&cR&6A&eI&aN&bB&5O&dW&r &bTrout"
+    menu_name: "&c&lR&6&lA&e&lI&a&lN&b&lB&5&lO&d&lW&r &b&lTrout"
     item_material: "TROPICAL_FISH"
     item_glow: true
     item_lore:
@@ -170,3 +223,17 @@ items:
       - "&7How did you even catch it?"
     sell_price: 10000
     sellable: true
+
+  ################
+  ##### MISC #####
+  ################
+
+  animal_meat:
+    rarity: "&7[COMMON]&r "
+    menu_name: "&fAnimal Meat"
+    item_material: "COOKED_BEEF"
+    item_lore:
+      - "&7A piece of animal meat"
+      - "&7Worth a pretty penny"
+    sellable: true
+    sell_price: 300

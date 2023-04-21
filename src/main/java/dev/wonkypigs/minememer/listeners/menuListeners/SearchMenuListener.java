@@ -2,7 +2,6 @@ package dev.wonkypigs.minememer.listeners.menuListeners;
 
 import dev.wonkypigs.minememer.GUIHolders;
 import dev.wonkypigs.minememer.MineMemer;
-import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,7 +11,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
-import static dev.wonkypigs.minememer.helpers.commandHelpers.SearchHelper.doSearch;
+import static dev.wonkypigs.minememer.commands.playerCommands.economy.makingMoney.searching.SearchCommandUtils.doSearch;
 
 
 public class SearchMenuListener implements Listener {

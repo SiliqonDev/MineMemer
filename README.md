@@ -1,7 +1,7 @@
 ## MineMemer
 - A plugin made with the memers, by the memers, for the memers
-- Latest public version: vbeta -0.6
-- 1.14.* - 1.19.* support
+- Latest public version: vbeta -0.5
+- 1.18.1 - 1.19.* support
 
 ### RAQ (Rarely asked questions)
 - **Q. Does it work?**
@@ -14,13 +14,20 @@
   - A. Honestly, if you have a brain, thats more than enough
 - **Q. Is the `-` in the version name a hyphen?**
   - A. No, it's a negative sign
-- **Q. <1.14 support where?**
+- **Q. <1.18.1 support where?**
   - A. In your dreams.
 
-### TODO:
-- ~~copy dank memer~~
-- ~~chill~~
-- chill but more
-- ~~procrastinate making item store~~
-- procrastinate fixing treasure obtaining
-- not add PAPI support till someone harasses me to do it
+### Todo List (no guarantees):
+- leveling system / rewards
+- PAPI support
+- page system for inv and store
+- jobs / working system
+- compare command
+- crime command
+- robbing system
+- gambling system
+
+> #### Credits for this abomination:
+> - Whoever made Dank Memer: `✨ The insipiration ✨`
+> - EpicEbic : `Made the .gitignore`
+> - Me: `Did literally everything else`

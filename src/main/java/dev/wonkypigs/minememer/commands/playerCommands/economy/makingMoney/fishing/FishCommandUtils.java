@@ -1,4 +1,4 @@
-package dev.wonkypigs.minememer.helpers.commandHelpers;
+package dev.wonkypigs.minememer.commands.playerCommands.economy.makingMoney.fishing;
 
 import dev.wonkypigs.minememer.MineMemer;
 import org.bukkit.entity.Player;
@@ -8,7 +8,7 @@ import java.util.*;
 import static dev.wonkypigs.minememer.helpers.GeneralUtils.pickRandomNum;
 import static dev.wonkypigs.minememer.helpers.InventoryUtils.*;
 
-public class FishingHelper {
+public class FishCommandUtils {
     private static final MineMemer plugin = MineMemer.getInstance();
 
     public static List<String> getValidFishList() {
@@ -32,29 +32,6 @@ public class FishingHelper {
         Random random = new Random();
         return chances.get(random.nextInt(chances.size()));
     }
-
-    public static List<String> getValidTreasureList() {
-        List<String> treasureList = new ArrayList<>();
-        Set<String> itemNames = plugin.items.getConfigurationSection("items").getKeys(false);
-        for (String item: itemNames) {
-            if (plugin.items.getBoolean("items." + item + ".is_treasure")) {
-                treasureList.add(item);
-            }
-        }
-        return treasureList;
-    }
-
-    public static String getTreasureResult() {
-        List<String> treasureList = getValidTreasureList();
-        List<String> chances = new ArrayList<>();
-        for (String treasure: treasureList) {
-            int treasureChance = plugin.items.getInt("items." + treasureList + ".treasure_obtain_chance");
-            chances.addAll(Collections.nCopies(treasureChance, treasure));
-        }
-        Random random = new Random();
-        return chances.get(random.nextInt(chances.size()));
-    }
-
     public static void catchFish(Player player) {
         int failChance = plugin.economy.getInt("fishing-failure-chance");
         if ((!(pickRandomNum(0, 101) > failChance))) {
@@ -99,8 +76,10 @@ public class FishingHelper {
     public static void breakRod(Player player) {
         int rodBreakChance = plugin.economy.getInt("fishing-rod-break-chance");
         if ((!(pickRandomNum(0, 101) > rodBreakChance))) {
-            player.sendMessage(plugin.lang.getString("fishing-rod-broke")
+            player.sendMessage(plugin.lang.getString("item-broke")
                     .replace("&", "§")
+                    .replace("{item}", plugin.items.getString("items.fishing_rod.menu_name")
+                            .replace("&", "§"))
             );
             removePlayerItem(player, "fishing_rod", 1);
         }

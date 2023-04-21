@@ -1,4 +1,4 @@
-package dev.wonkypigs.minememer.commands.playerCommands.economy.makingMoney;
+package dev.wonkypigs.minememer.commands.playerCommands.economy.makingMoney.searching;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
@@ -13,7 +13,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static dev.wonkypigs.minememer.helpers.GeneralUtils.*;

@@ -1,4 +1,4 @@
-package dev.wonkypigs.minememer.helpers.commandHelpers;
+package dev.wonkypigs.minememer.commands.playerCommands.economy.store;
 
 import dev.wonkypigs.minememer.MineMemer;
 import net.wesjd.anvilgui.AnvilGUI;

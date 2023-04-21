@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static dev.wonkypigs.minememer.helpers.MenuHelpers.*;
-import static dev.wonkypigs.minememer.helpers.commandHelpers.StoreHelper.*;
+import static dev.wonkypigs.minememer.commands.playerCommands.economy.store.StoreHelper.*;
 
 public class BuyMenu {
     private static final MineMemer plugin = MineMemer.getInstance();

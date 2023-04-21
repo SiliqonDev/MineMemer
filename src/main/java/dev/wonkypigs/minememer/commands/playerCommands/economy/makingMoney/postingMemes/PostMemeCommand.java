@@ -1,4 +1,4 @@
-package dev.wonkypigs.minememer.commands.playerCommands.economy.makingMoney;
+package dev.wonkypigs.minememer.commands.playerCommands.economy.makingMoney.postingMemes;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
@@ -18,14 +18,15 @@ import static dev.wonkypigs.minememer.helpers.InventoryUtils.getPlayerItemAmount
 import static dev.wonkypigs.minememer.helpers.MenuHelpers.setMenuBackground;
 
 @CommandAlias("mm|minememer")
-public class PostmemeCommand extends BaseCommand {
+public class PostMemeCommand extends BaseCommand {
     private static final MineMemer plugin = MineMemer.getInstance();
 
     @Subcommand("postmeme")
     public void postAMeme(Player player) {
         if (getPlayerItemAmount(player, "laptop") == 0) {
-            player.sendMessage(plugin.lang.getString("no-laptop")
+            player.sendMessage(plugin.lang.getString("need-item")
                     .replace("&", "§")
+                    .replace("{item}", plugin.items.getString("items.laptop.menu_name").replace("&", "§"))
             );
             return;
         }

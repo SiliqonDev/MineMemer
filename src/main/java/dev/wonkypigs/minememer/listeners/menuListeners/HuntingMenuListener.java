@@ -2,7 +2,6 @@ package dev.wonkypigs.minememer.listeners.menuListeners;
 
 import dev.wonkypigs.minememer.GUIHolders;
 import dev.wonkypigs.minememer.MineMemer;
-import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,27 +11,24 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
-import static dev.wonkypigs.minememer.commands.playerCommands.economy.makingMoney.fishing.FishCommandUtils.*;
+import static dev.wonkypigs.minememer.commands.playerCommands.economy.makingMoney.hunting.HuntCommandUtils.*;
 
-public class FishingMenuListener implements Listener {
+public class HuntingMenuListener implements Listener {
     private static final MineMemer plugin = MineMemer.getInstance();
-    NamespacedKey fishItemKey = new NamespacedKey(plugin, plugin.fishItemKeyName);
+    NamespacedKey animalItemKey = new NamespacedKey(plugin, plugin.animalItemKeyName);
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
         InventoryHolder holder = e.getInventory().getHolder();
-        if (holder instanceof GUIHolders && ((GUIHolders) holder).getType().equalsIgnoreCase("fishing")) {
+        if (holder instanceof GUIHolders && ((GUIHolders) holder).getType().equalsIgnoreCase("hunting")) {
             if (e.getCurrentItem() == null) {
                 return;
             }
             e.setCancelled(true);
             Player player = (Player) e.getWhoClicked();
             ItemMeta meta = e.getCurrentItem().getItemMeta();
-            if (meta.getPersistentDataContainer().has(fishItemKey, PersistentDataType.STRING)) {
-                catchFish(player);
-                player.closeInventory();
-            } else if (e.getCurrentItem().getType().equals(Material.BLUE_STAINED_GLASS_PANE)) {
-                clickedWater(player);
+            if (meta.getPersistentDataContainer().has(animalItemKey, PersistentDataType.STRING)) {
+                doHunt(player, meta.getDisplayName());
                 player.closeInventory();
             }
         }

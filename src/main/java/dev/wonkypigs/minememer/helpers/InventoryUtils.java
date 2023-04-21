@@ -122,10 +122,9 @@ public class InventoryUtils {
         }
         itemMeta.setLore(lore);
         if (plugin.items.getBoolean(ymlPath + ".item_glow")) {
-            item.addUnsafeEnchantment(Enchantment.CHANNELING, 1);
+            item.addUnsafeEnchantment(Enchantment.LUCK, 1);
         }
 
-        itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         item.setItemMeta(itemMeta);
         return item;
@@ -145,5 +144,25 @@ public class InventoryUtils {
         } else {
             return false;
         }
+    }
+    public static List<String> getValidTreasureList() {
+        List<String> treasureList = new ArrayList<>();
+        Set<String> itemNames = plugin.items.getConfigurationSection("items").getKeys(false);
+        for (String item: itemNames) {
+            if (plugin.items.getBoolean("items." + item + ".is_treasure")) {
+                treasureList.add(item);
+            }
+        }
+        return treasureList;
+    }
+    public static String getTreasureResult() {
+        List<String> treasureList = getValidTreasureList();
+        List<String> chances = new ArrayList<>();
+        for (String treasure: treasureList) {
+            int treasureChance = plugin.items.getInt("items." + treasure + ".treasure_obtain_chance");
+            chances.addAll(Collections.nCopies(treasureChance, treasure));
+        }
+        Random random = new Random();
+        return chances.get(random.nextInt(chances.size()));
     }
 }
